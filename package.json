@@ -1,0 +1,38 @@
+{
+  "name": "tilectron",
+  "version": "0.0.0",
+  "description": "Electron based tile window browser",
+  "main": "build/browser/main.js",
+  "bin": {
+    "tilectron": "cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rhysd/Tilectron.git"
+  },
+  "keywords": [
+    "browser",
+    "electron",
+    "tile",
+    "window"
+  ],
+  "author": "rhysd <lin90162@yahoo.co.jp>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rhysd/Tilectron/issues"
+  },
+  "homepage": "https://github.com/rhysd/Tilectron#readme",
+  "dependencies": {
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0"
+  },
+  "devDependencies": {
+    "babelify": "^6.3.0",
+    "browserify": "^11.2.0",
+    "electron-prebuilt": "^0.33.7",
+    "typescript": "^1.6.2"
+  }
+}
