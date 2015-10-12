@@ -4,6 +4,9 @@ import ContainerNode, {SplitType} from './container-node'
 // When splitting the reducer logically, combine it by combineReducers()
 // import {combineReducers} from 'redux'
 
+// TODO:
+// Look addresses in process.argv and open them.
+
 const init = {
     next_id: 1,
     tree: new TileLeaf(null, 0),

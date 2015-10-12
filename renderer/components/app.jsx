@@ -4,6 +4,8 @@ import {splitVertical, splitHorizontal} from '../actions'
 import TileLeaf from '../tile-leaf'
 import Tile from './tile.jsx'
 import Container from './container.jsx'
+import DebugButtons from './debug-buttons.jsx'
+import AddressBar from './address-bar.jsx'
 
 class App extends React.Component {
     renderTree() {
@@ -19,12 +21,10 @@ class App extends React.Component {
     render() {
         return (
             <div className="root">
-                <button type="button" onClick={() => this.props.dispatch(splitVertical())}>
-                    Split Vertical
-                </button>
-                <button type="button" onClick={() => this.props.dispatch(splitHorizontal())}>
-                    Split Horizontal
-                </button>
+                <div className="app-header">
+                    <DebugButtons {...this.props}/>
+                    <AddressBar />
+                </div>
                 {this.renderTree()}
             </div>
         );
