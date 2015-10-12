@@ -1,4 +1,4 @@
-import {SPLIT_VERTICAL} from './actions'
+import {SPLIT_VERTICAL, SPLIT_HORIZONTAL} from './actions'
 import TileLeaf from './tile-leaf'
 import ContainerNode, {SplitType} from './container-node'
 // When splitting the reducer logically, combine it by combineReducers()
