@@ -6,27 +6,26 @@ import Tile from './tile.jsx'
 import Container from './container.jsx'
 
 class App extends React.Component {
-    renderTree(tree, current_id) {
+    renderTree() {
+        const {dispatch, tree, current_id, views} = this.props;
+
         if (tree instanceof TileLeaf) {
-            return <Tile leaf={tree} current_id={current_id}/>;
+            return <Tile leaf={tree} current_id={current_id} views={views} dispatch={dispatch}/>;
         } else {
-            return <Container knot={tree} current_id={current_id}/>;
+            return <Container knot={tree} current_id={current_id} views={views} dispatch={dispatch}/>;
         }
     }
 
     render() {
-        // Note: Get states as props here
-        const {dispatch, tree, current_id} = this.props;
-
         return (
             <div className="root">
-                <button type="button" onClick={() => dispatch(splitVertical())}>
+                <button type="button" onClick={() => this.props.dispatch(splitVertical())}>
                     Split Vertical
                 </button>
-                <button type="button" onClick={() => dispatch(splitHorizontal())}>
+                <button type="button" onClick={() => this.props.dispatch(splitHorizontal())}>
                     Split Horizontal
                 </button>
-                {this.renderTree(tree, current_id)}
+                {this.renderTree()}
             </div>
         );
     }

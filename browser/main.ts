@@ -5,9 +5,11 @@ import * as BrowserWindow from 'browser-window';
 const index_html = 'file://' + path.join(__dirname, '..', '..', 'index.html');
 
 app.on('ready', () => {
+    const display_size = require('screen').getPrimaryDisplay().workAreaSize;
+
     let win = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: display_size.width,
+        height: display_size.height,
     });
 
     win.on('closed', () => {

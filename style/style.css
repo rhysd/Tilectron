@@ -21,8 +21,27 @@ html,body {
 }
 
 .tile {
-  border: solid 1px #ddd;
+  border: solid 1px #dddddd;
   width: 100%;
   height: 100%;
   flex: auto;
+}
+
+.new-window {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background-color: #dddddd;
+}
+
+.initial-input {
+  margin: 0px 8px;
+  flex: auto;
+}
+
+.inner-view {
+  width: 100%;
+  height: 100%;
 }
