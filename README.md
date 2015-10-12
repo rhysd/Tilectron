@@ -18,6 +18,7 @@ This app is not ready for release.  Only [npm](https://www.npmjs.com/) package i
 
 ```bash
 $ npm install electron-prebuilt tilectron
+$ tilectron
 ```
 
 ## License
