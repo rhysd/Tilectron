@@ -1,5 +1,5 @@
-Tilectron: Tiling Window Browser on Electron
-==========================================
+Tilectron: Tiling Window Browser
+================================
 
 Tilectron is tiling window browser built on [Electron](https://github.com/atom/electron).
 
