@@ -12,6 +12,14 @@ Currently being **heavily** constructed.  Below is current screenshot.
 
 ![current implementation screen shot](https://raw.githubusercontent.com/rhysd/ss/master/Tilectron/current-progress.gif)
 
+## Installation
+
+This app is not ready for release.  Only [npm](https://www.npmjs.com/) package is available.
+
+```bash
+$ npm install electron-prebuilt tilectron
+```
+
 ## License
 
 [MIT License](LICENSE.txt)
