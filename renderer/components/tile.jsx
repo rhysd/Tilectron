@@ -28,6 +28,15 @@ export default class Tile extends React.Component {
         );
     }
 
+    getClass() {
+        const {current_id, leaf} = this.props;
+        if (current_id === leaf.id) {
+            return "tile focused";
+        } else {
+            return "tile";
+        }
+    }
+
     // XXX
     mountWebView() {
         let node = this.refs.tile;
@@ -52,7 +61,7 @@ export default class Tile extends React.Component {
 
         if (!view) {
             return (
-                <div className="tile" style={this.props.style} ref="tile">
+                <div className={this.getClass()} style={this.props.style} ref="tile">
                     <div className="new-window">
                         <input className="initial-input" type="search" placeholder="URL or words..." onKeyPress={this.onInputChar.bind(this)}/>
                     </div>
@@ -62,7 +71,7 @@ export default class Tile extends React.Component {
 
         this.view = view;
         return (
-            <div className="tile" style={this.props.style} ref="tile">
+            <div className={this.getClass()} style={this.props.style} ref="tile">
             </div>
         );
     }

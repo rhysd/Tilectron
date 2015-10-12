@@ -33,8 +33,6 @@ function splitTile(state, type) {
 
     next_state.current_id = new_leaf.id;
 
-    console.log(next_state);
-
     return next_state;
 }
 

@@ -29,9 +29,10 @@ export default class Container extends React.Component {
     renderTree(tree) {
         const {current_id, views, dispatch} = this.props;
         const common_props = {
+            style: this.getChildStyle(),
             current_id,
             views,
-            dispatch
+            dispatch,
         };
 
         if (tree instanceof TileLeaf) {

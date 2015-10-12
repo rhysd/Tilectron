@@ -21,10 +21,14 @@ html,body {
 }
 
 .tile {
-  border: solid 1px #dddddd;
+  border: solid 1px #666666;
   width: 100%;
   height: 100%;
   flex: auto;
+}
+
+.tile.focused {
+  border: solid 1px #aa3311;
 }
 
 .new-window {
