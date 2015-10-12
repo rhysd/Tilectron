@@ -1,7 +1,7 @@
 {
   "name": "tilectron",
   "version": "0.0.0",
-  "description": "Electron based tile window browser",
+  "description": "Tiling window browser built on Electron",
   "main": "build/browser/main.js",
   "bin": {
     "tilectron": "cli.js"
