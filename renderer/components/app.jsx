@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {splitVertical} from './actions'
+import {splitVertical} from '../actions'
 
 class App extends React.Component {
     render() {
@@ -8,8 +8,11 @@ class App extends React.Component {
         const {dispatch} = this.props;
         return (
             <div>
-                <button type="button" onClick(() => dispatch(splitVertical()))>
-                    Split
+                <button type="button" onClick={() => dispatch(splitVertical())}>
+                    Split Vertical
+                </button>
+                <button type="button" onClick={() => dispatch(splitHorizontal())}>
+                    Split Horizontal
                 </button>
             </div>
         );
