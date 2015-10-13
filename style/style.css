@@ -14,11 +14,13 @@ html,body {
   display: flex;
   flex-direction: row;
   padding: 4px;
+  height: 30px;
+  box-sizing: border-box;
 }
 
 .root {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 30px); /* 30px for debug buttons */
 }
 
 .knot {
@@ -34,6 +36,7 @@ html,body {
   flex: auto;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 }
 .tile.focused {
   border: solid 1px #aa3311;
@@ -43,7 +46,6 @@ html,body {
   flex-direction: row;
   align-items: center;
   height: 100%;
-  width: 100%;
   background-color: #dddddd;
   padding: 0px 8px;
 }
@@ -90,7 +92,6 @@ html,body {
 }
 
 .omni-input {
-  width: 100%;
   box-sizing: border-box;
   flex: auto;
 }
