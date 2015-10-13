@@ -13,6 +13,12 @@ html,body {
   flex: auto;
 }
 
+.icon-button {
+  margin: 0em 0.2em;
+  cursor: pointer;
+  -webkit-user-select: none;
+}
+
 .debug-buttons {
   background-color: #dddddd;
   display: flex;
@@ -30,7 +36,6 @@ html,body {
 .debug-buttons .menu-button {
   margin: 0em 0.2em;
   cursor: pointer;
-  float: right;
 }
 
 .root {
@@ -81,10 +86,8 @@ html,body {
   border-bottom: solid 1px #999999;
   flex: auto;
 }
-.address-bar .refresh-button {
-  cursor: pointer;
+.address-bar .icon-button {
   margin: 0px 8px;
-  -webkit-user-select: none;
 }
 .address-bar .back-button {
   cursor: pointer;

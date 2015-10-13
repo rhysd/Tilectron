@@ -11,7 +11,7 @@ const DebugButtons = props => (
         </button>
         <div className="spacer">
         </div>
-        <div className="menu-button">
+        <div className="icon-button">
             <i className="fa fa-bars"/>
         </div>
     </div>

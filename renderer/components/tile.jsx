@@ -45,7 +45,7 @@ export default class Tile extends React.Component {
         return (
             <div className={this.getClass()} style={this.props.style} ref="tile" onMouseOver={this.focusMe.bind(this)}>
                 <div className="addr-bar-wrapper" style={addr_style} ref="address_bar">
-                    <AddressBar dispatch={this.props.dispatch}/>
+                    <AddressBar dispatch={this.props.dispatch} tile_id={this.props.leaf.id}/>
                 </div>
                 {children}
             </div>

@@ -5,6 +5,7 @@ export const SplitType = {
 
 export default class ContainerNode {
     constructor(parent, left, right, type) {
+        this.parent = parent;
         this.left = left;
         this.right = right;
         this.left.parent = this;
@@ -16,13 +17,26 @@ export default class ContainerNode {
         return this.left && this.right;
     }
 
-    replaceChild(id, new_child) {
-        if (this.left.id !== undefined && this.left.id === id) {
+    replaceChild(old_child, new_child) {
+        if (this.left === old_child) {
             this.left = new_child;
-        } else if (this.right.id !== undefined && this.right.id === id) {
+            new_child.parent = this;
+        } else if (this.right === old_child) {
             this.right = new_child;
+            new_child.parent = this;
         } else {
-            console.log('Invalid id: ' + id);
+            console.log('Invalid old child', old_child);
+        }
+    }
+
+    getAnotherChild(child) {
+        if (this.left === child) {
+            return this.right;
+        } else if (this.right === child) {
+            return this.left;
+        } else {
+            console.log('Not a child', child);
+            return null;
         }
     }
 
