@@ -1,5 +1,6 @@
 import React from 'react'
 import {openWebView} from '../actions'
+import AddressBar from './address-bar.jsx'
 
 // TODO:
 // Use stateless container (react v0.14)
@@ -39,11 +40,9 @@ export default class Tile extends React.Component {
 
     // XXX
     mountWebView() {
-        let node = this.refs.tile;
-
         // When <webview> is already open.
-        if (!node.hasChildNodes() && this.view) {
-            node.appendChild(this.view);
+        if (this.view) {
+            this.refs.tile.appendChild(this.view);
         }
     }
 
@@ -55,24 +54,27 @@ export default class Tile extends React.Component {
         this.mountWebView();
     }
 
+    renderFrame(children) {
+        return (
+            <div className={this.getClass()} style={this.props.style} ref="tile">
+                <AddressBar/>
+                {children}
+            </div>
+        )
+    }
+
     render() {
         const {leaf, views} = this.props;
-        const view = views[leaf.id];
+        this.view = views[leaf.id];
 
-        if (!view) {
-            return (
-                <div className={this.getClass()} style={this.props.style} ref="tile">
-                    <div className="new-window">
-                        <input className="initial-input" type="search" placeholder="URL or words..." onKeyPress={this.onInputChar.bind(this)}/>
-                    </div>
+        if (!this.view) {
+            return this.renderFrame(
+                <div className="new-window">
+                    <input className="initial-input" type="search" placeholder="URL or words..." onKeyPress={this.onInputChar.bind(this)}/>
                 </div>
             );
         }
 
-        this.view = view;
-        return (
-            <div className={this.getClass()} style={this.props.style} ref="tile">
-            </div>
-        );
+        return this.renderFrame(undefined);
     }
 }

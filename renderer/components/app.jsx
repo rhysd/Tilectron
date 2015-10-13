@@ -5,7 +5,6 @@ import TileLeaf from '../tile-leaf'
 import Tile from './tile.jsx'
 import Container from './container.jsx'
 import DebugButtons from './debug-buttons.jsx'
-import AddressBar from './address-bar.jsx'
 
 class App extends React.Component {
     renderTree() {
@@ -21,10 +20,7 @@ class App extends React.Component {
     render() {
         return (
             <div className="root">
-                <div className="app-header">
-                    <DebugButtons {...this.props}/>
-                    <AddressBar />
-                </div>
+                <DebugButtons {...this.props}/>
                 {this.renderTree()}
             </div>
         );
