@@ -4,7 +4,6 @@ import {splitVertical, splitHorizontal} from '../actions'
 import TileLeaf from '../tile-leaf'
 import Tile from './tile.jsx'
 import Container from './container.jsx'
-import DebugButtons from './debug-buttons.jsx'
 
 class App extends React.Component {
     renderTree() {
@@ -26,7 +25,6 @@ class App extends React.Component {
     render() {
         return (
             <div className="root">
-                <DebugButtons {...this.props}/>
                 {this.renderTree()}
             </div>
         );
