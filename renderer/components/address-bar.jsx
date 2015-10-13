@@ -1,4 +1,5 @@
 import React from 'react'
+import OmniInput from './omni-input.jsx'
 
 const AddressBar = props => (
     <div className="address-bar">
@@ -9,7 +10,7 @@ const AddressBar = props => (
             <i className="fa fa-arrow-right"/>
         </div>
         <i className="fa fa-refresh refresh-button"/>
-        <input className="address-input" type="search"/>
+        <OmniInput dispatch={props.dispatch}/>
     </div>
 );
 
