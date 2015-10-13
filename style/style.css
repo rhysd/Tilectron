@@ -9,13 +9,28 @@ html,body {
   height: 100%;
 }
 
+.spacer {
+  flex: auto;
+}
+
 .debug-buttons {
   background-color: #dddddd;
   display: flex;
   flex-direction: row;
   padding: 4px;
+  width: 100%;
   height: 30px;
   box-sizing: border-box;
+  align-items: center;
+  -webkit-user-select: none;
+}
+.debug-buttons button {
+  float: left;
+}
+.debug-buttons .menu-button {
+  margin: 0em 0.2em;
+  cursor: pointer;
+  float: right;
 }
 
 .root {
@@ -69,6 +84,7 @@ html,body {
 .address-bar .refresh-button {
   cursor: pointer;
   margin: 0px 8px;
+  -webkit-user-select: none;
 }
 .address-bar .back-button {
   cursor: pointer;
@@ -77,6 +93,7 @@ html,body {
   padding: 0px 4px;
   border-bottom-left-radius: 4px;
   border-top-left-radius: 4px;
+  -webkit-user-select: none;
 }
 .address-bar .forward-button {
   cursor: pointer;
@@ -85,10 +102,7 @@ html,body {
   padding: 0px 4px;
   border-bottom-right-radius: 4px;
   border-top-right-radius: 4px;
-}
-.address-bar .address-input {
-  flex: auto;
-  width: 100%;
+  -webkit-user-select: none;
 }
 
 .omni-input {
