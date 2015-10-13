@@ -1,18 +1,24 @@
 import React from 'react'
 import AddressBar from './address-bar.jsx'
 import OmniInput from './omni-input.jsx'
+import {changeFocus} from '../actions'
 
 // TODO:
 // Use stateless container (react v0.14)
 export default class Tile extends React.Component {
 
-    getClass() {
+    isFocused() {
         const {current_id, leaf} = this.props;
-        if (current_id === leaf.id) {
-            return "tile focused";
-        } else {
-            return "tile";
-        }
+        return current_id === leaf.id;
+    }
+
+    getClass() {
+        return this.isFocused() ? "tile focused" : "tile";
+    }
+
+    focusMe() {
+        const {dispatch, leaf} = this.props;
+        dispatch(changeFocus(leaf.id));
     }
 
     // XXX
@@ -32,9 +38,15 @@ export default class Tile extends React.Component {
     }
 
     renderFrame(children) {
+        const addr_style = {
+            display: this.isFocused() ? '' : 'none'
+        };
+
         return (
-            <div className={this.getClass()} style={this.props.style} ref="tile">
-                <AddressBar dispatch={this.props.dispatch}/>
+            <div className={this.getClass()} style={this.props.style} ref="tile" onMouseOver={this.focusMe.bind(this)}>
+                <div className="addr-bar-wrapper" style={addr_style} ref="address_bar">
+                    <AddressBar dispatch={this.props.dispatch}/>
+                </div>
                 {children}
             </div>
         )

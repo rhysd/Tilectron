@@ -1,4 +1,4 @@
-import {SPLIT_VERTICAL, SPLIT_HORIZONTAL, OPEN_URL} from './actions'
+import {SPLIT_VERTICAL, SPLIT_HORIZONTAL, OPEN_URL, CHANGE_FOCUS} from './actions'
 import TileLeaf from './tile-leaf'
 import ContainerNode, {SplitType} from './container-node'
 // When splitting the reducer logically, combine it by combineReducers()
@@ -64,8 +64,16 @@ function openURL(state, url) {
     return {...state};
 }
 
+function changeFocus(state, new_id) {
+    let next_state = {...state};
+    next_state.current_id = new_id;
+    return next_state;
+}
+
 export default function tilectron(state = init, action) {
     switch (action.type) {
+    case CHANGE_FOCUS:
+        return changeFocus(state, action.tile_id);
     case SPLIT_VERTICAL:
         return splitTile(state, SplitType.Vertical);
     case SPLIT_HORIZONTAL:
