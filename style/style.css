@@ -40,7 +40,7 @@ html,body {
 
 .root {
   width: 100%;
-  height: calc(100% - 30px); /* 30px for debug buttons */
+  height: 100%;
 }
 
 .knot {
