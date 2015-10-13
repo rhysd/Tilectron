@@ -18,7 +18,7 @@ function splitTile(state, type) {
     let next_state = {...state};
     let target_leaf = state.tree.searchLeaf(state.current_id);
 
-    if (!target_leaf) {
+    if (target_leaf === null) {
         console.log('Invalid id: ' + state.current_id);
         return next_state;
     }

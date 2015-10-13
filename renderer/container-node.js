@@ -17,9 +17,9 @@ export default class ContainerNode {
     }
 
     replaceChild(id, new_child) {
-        if (this.left.id && this.left.id === id) {
+        if (this.left.id !== undefined && this.left.id === id) {
             this.left = new_child;
-        } else if (this.right.id && this.right.id === id) {
+        } else if (this.right.id !== undefined && this.right.id === id) {
             this.right = new_child;
         } else {
             console.log('Invalid id: ' + id);
