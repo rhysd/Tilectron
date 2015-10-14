@@ -165,4 +165,15 @@ export default class TileTree {
     getDownOf(id) {
         return this.getNeighbor(id, Direction.Right, SplitType.Horizontal);
     }
+
+    switchSplitType(id) {
+        let target_leaf = this.root.searchLeaf(id);
+        if (target_leaf === null || target_leaf.parent === null) {
+            return;
+        }
+
+        target_leaf.parent.split_type =
+            target_leaf.parent.split_type === SplitType.Vertical ?
+                SplitType.Horizontal : SplitType.Vertical;
+    }
 }

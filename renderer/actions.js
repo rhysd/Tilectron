@@ -7,6 +7,7 @@ export const FOCUS_LEFT = Symbol('action-focus-left');
 export const FOCUS_RIGHT = Symbol('action-focus-right');
 export const FOCUS_UP = Symbol('action-focus-up');
 export const FOCUS_DOWN = Symbol('action-focus-down');
+export const SWITCH_SPLIT = Symbol('action-switch-split');
 
 export function splitVertical() {
     return {type: SPLIT_VERTICAL};
@@ -48,4 +49,11 @@ export function focusUp() {
 }
 export function focusDown() {
     return {type: FOCUS_DOWN};
+}
+
+export function switchSplit(tile_id) {
+    return {
+        type: SWITCH_SPLIT,
+        tile_id
+    };
 }

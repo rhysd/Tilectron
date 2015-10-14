@@ -1,4 +1,4 @@
-import {SPLIT_VERTICAL, SPLIT_HORIZONTAL, OPEN_URL, CHANGE_FOCUS, CLOSE_TILE, FOCUS_LEFT, FOCUS_RIGHT, FOCUS_UP, FOCUS_DOWN} from './actions';
+import {SPLIT_VERTICAL, SPLIT_HORIZONTAL, OPEN_URL, CHANGE_FOCUS, CLOSE_TILE, FOCUS_LEFT, FOCUS_RIGHT, FOCUS_UP, FOCUS_DOWN, SWITCH_SPLIT} from './actions';
 import TileTree, {SplitType} from './tile-tree';
 // When splitting the reducer logically, combine it by combineReducers()
 // import {combineReducers} from 'redux'
@@ -82,6 +82,12 @@ function focusNeighbor(state, next_current_id) {
     return next_state;
 }
 
+function switchSplit(state, id) {
+    let next_state = {...state};
+    next_state.tree.switchSplitType(id);
+    return next_state;
+}
+
 export default function tilectron(state = init, action) {
     switch (action.type) {
     case CHANGE_FOCUS:
@@ -102,6 +108,8 @@ export default function tilectron(state = init, action) {
         return focusNeighbor(state, state.tree.getUpOf(state.current_id));
     case FOCUS_DOWN:
         return focusNeighbor(state, state.tree.getDownOf(state.current_id));
+    case SWITCH_SPLIT:
+        return switchSplit(state, action.tile_id);
     default:
         console.log('Unknown action: ' + action.type);
         return state;
