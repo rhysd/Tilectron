@@ -1,12 +1,12 @@
 import React,{PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
-import TileLeaf from '../tile-leaf';
+import {TileLeaf} from '../tile-tree';
 import Tile from './tile.jsx';
 import Container from './container.jsx';
 
 class App extends Component {
     renderTree() {
-        const {dispatch, tree, current_id, views} = this.props;
+        const {dispatch, root, current_id, views} = this.props;
         const common_props = {
             style: {flex: 'auto'},
             current_id,
@@ -14,10 +14,10 @@ class App extends Component {
             dispatch
         };
 
-        if (tree instanceof TileLeaf) {
-            return <Tile leaf={tree} {...common_props}/>;
+        if (root instanceof TileLeaf) {
+            return <Tile leaf={root} {...common_props}/>;
         } else {
-            return <Container knot={tree} {...common_props}/>;
+            return <Container knot={root} {...common_props}/>;
         }
     }
 
@@ -33,12 +33,18 @@ class App extends Component {
 App.propTypes = {
     current_id: PropTypes.number,
     dispatch: PropTypes.func,
-    tree: PropTypes.object,
-    views: PropTypes.array
+    root: PropTypes.object,
+    views: PropTypes.object
 };
 
 function select(state) {
-    return state;
+    const {current_id, dispatch, tree, views} = state;
+    return {
+        root: tree.root,
+        current_id,
+        dispatch,
+        views
+    };
 }
 
 export default connect(select)(App);

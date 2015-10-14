@@ -1,7 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 import Tile from './tile.jsx';
-import ContainerNode, {SplitType} from '../container-node';
-import TileLeaf from '../tile-leaf';
+import {ContainerKnot, TileLeaf, SplitType} from '../tile-tree';
 
 export default class Container extends Component {
     getDirection() {
@@ -58,7 +57,7 @@ export default class Container extends Component {
 Container.propTypes = {
     current_id: PropTypes.number,
     dispatch: PropTypes.func,
-    knot: PropTypes.instanceOf(ContainerNode),
+    knot: PropTypes.instanceOf(ContainerKnot),
     style: PropTypes.object,
-    views: PropTypes.array
+    views: PropTypes.object
 };

@@ -1,6 +1,5 @@
 import {SPLIT_VERTICAL, SPLIT_HORIZONTAL, OPEN_URL, CHANGE_FOCUS, CLOSE_TILE} from './actions';
-import TileLeaf from './tile-leaf';
-import ContainerNode, {SplitType} from './container-node';
+import TileTree, {SplitType} from './tile-tree';
 // When splitting the reducer logically, combine it by combineReducers()
 // import {combineReducers} from 'redux'
 
@@ -8,71 +7,34 @@ import ContainerNode, {SplitType} from './container-node';
 // Look addresses in process.argv and open them.
 
 let init = {
-    next_id: 1,
-    tree: new TileLeaf(null, 0),
+    tree: new TileTree(),
     current_id: 0,
     views: {}
 };
 
 function splitTile(state, type) {
     let next_state = {...state};
-    let target_leaf = state.tree.searchLeaf(state.current_id);
-
-    if (target_leaf === null) {
-        console.log('Invalid id: ' + state.current_id);
-        return next_state;
+    let created_tile_id = next_state.tree.split(state.current_id, type);
+    if (created_tile_id !== null) {
+        next_state.current_id = created_tile_id;
     }
-
-    let new_leaf = new TileLeaf(null, next_state.next_id++);
-
-    let target_parent = target_leaf.parent;
-    let new_container = new ContainerNode(target_parent, target_leaf, new_leaf, type);
-
-    if (target_parent === null) {
-        next_state.tree = new_container;
-    } else {
-        target_parent.replaceChild(target_leaf, new_container);
-    }
-
-    next_state.current_id = new_leaf.id;
-
     return next_state;
 }
 
 function closeTile(state, target_id) {
     let next_state = {...state};
-    let target_leaf = state.tree.searchLeaf(target_id);
-
-    if (target_leaf === null) {
-        console.log('Invalid id: ' + target_id);
-        return next_state; // Error
-    }
-
-    let target_parent = target_leaf.parent;
-    if (target_parent === null) {
-        return next_state; // Root
-    }
-
-    let opposite_child = target_parent.getAnotherChild(target_leaf);
-    if (opposite_child === null) {
-        return next_state; // Error
-    }
-
-    let parent_of_parent = target_parent.parent;
-    if (parent_of_parent === null) {
-        next_state.tree = opposite_child;
-        opposite_child.parent = null;
-    } else {
-        parent_of_parent.replaceChild(target_parent, opposite_child);
+    let survived_tile_id = next_state.tree.remove(target_id);
+    if (survived_tile_id === null) {
+        return next_state;
     }
 
     if (next_state.current_id === target_id) {
-        next_state.current_id = opposite_child.id;
+        next_state.current_id = survived_tile_id;
     }
 
-    if (state.views[opposite_child.id]) {
+    if (state.views[survived_tile_id]) {
         next_state.views = {...next_state.views};
-        delete next_state.views[opposite_child.id];
+        delete next_state.views[survived_tile_id];
     }
 
     return next_state;
