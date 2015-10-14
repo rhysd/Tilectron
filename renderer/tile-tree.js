@@ -14,6 +14,11 @@ export const SplitType = {
     Vertical: Symbol('vertical')
 };
 
+const Direction = {
+    Left: Symbol('left'),
+    Right: Symbol('right')
+};
+
 export class ContainerKnot {
     constructor(parent, left, right, type) {
         this.parent = parent;
@@ -22,10 +27,6 @@ export class ContainerKnot {
         this.left.parent = this;
         this.right.parent = this;
         this.split_type = type;
-    }
-
-    hasChild() {
-        return this.left && this.right;
     }
 
     replaceChild(old_child, new_child) {
@@ -37,6 +38,14 @@ export class ContainerKnot {
             new_child.parent = this;
         } else {
             console.log('Invalid old child', old_child);
+        }
+    }
+
+    getChild(direction) {
+        if (direction === Direction.Left) {
+            return this.left;
+        } else {
+            return this.right;
         }
     }
 
@@ -63,15 +72,15 @@ export default class TileTree {
     }
 
     split(id, split_type) {
-        let target_leaf = this.root.searchLeaf(id);
+        const target_leaf = this.root.searchLeaf(id);
         if (target_leaf === null) {
             console.log('Invalid id: ' + id);
             return null;
         }
 
-        let new_leaf = new TileLeaf(null, this.next_id++);
-        let target_parent = target_leaf.parent;
-        let new_container = new ContainerKnot(target_parent, target_leaf, new_leaf, split_type);
+        const new_leaf = new TileLeaf(null, this.next_id++);
+        const target_parent = target_leaf.parent;
+        const new_container = new ContainerKnot(target_parent, target_leaf, new_leaf, split_type);
 
         if (target_parent === null) {
             this.root = new_container;
@@ -83,23 +92,23 @@ export default class TileTree {
     }
 
     remove(id) {
-        let target_leaf = this.root.searchLeaf(id);
+        const target_leaf = this.root.searchLeaf(id);
         if (target_leaf === null) {
             console.log('Invalid id: ' + id);
             return null; // Error
         }
 
-        let target_parent = target_leaf.parent;
+        const target_parent = target_leaf.parent;
         if (target_parent === null) {
             return null; // Root
         }
 
-        let opposite_child = target_parent.getAnotherChild(target_leaf);
+        const opposite_child = target_parent.getAnotherChild(target_leaf);
         if (opposite_child === null) {
             return null; // Error
         }
 
-        let parent_of_parent = target_parent.parent;
+        const parent_of_parent = target_parent.parent;
         if (parent_of_parent === null) {
             this.root = opposite_child;
             opposite_child.parent = null;
@@ -108,5 +117,52 @@ export default class TileTree {
         }
 
         return opposite_child.id;
+    }
+
+    getNeighborImpl(target_node, direction, split_type) {
+        const parent = target_node.parent;
+        if (parent === null) {
+            // Reached root; not found
+            return null;
+        }
+
+        console.log(target_node);
+
+        if (parent.split_type === split_type) {
+            const c = parent.getChild(
+                    direction === Direction.Left ?
+                        Direction.Right :
+                        Direction.Left
+                );
+
+            if (c === target_node) {
+                // Found!
+                return parent.getChild(direction).id;
+            }
+        }
+
+        return this.getNeighborImpl(parent, direction, split_type);
+    }
+
+    getNeighbor(id, direction, split_type) {
+        let target_leaf = this.root.searchLeaf(id);
+        if (target_leaf === null) {
+            console.log('Invalid id: ' + id);
+            return null; // Error
+        }
+        return this.getNeighborImpl(target_leaf, direction, split_type);
+    }
+
+    getLeftOf(id) {
+        return this.getNeighbor(id, Direction.Left, SplitType.Vertical);
+    }
+    getRightOf(id) {
+        return this.getNeighbor(id, Direction.Right, SplitType.Vertical);
+    }
+    getUpOf(id) {
+        return this.getNeighbor(id, Direction.Left, SplitType.Horizontal);
+    }
+    getDownOf(id) {
+        return this.getNeighbor(id, Direction.Right, SplitType.Horizontal);
     }
 }

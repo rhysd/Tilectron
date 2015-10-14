@@ -3,6 +3,10 @@ export const SPLIT_HORIZONTAL = Symbol('action-split-horizontal');
 export const OPEN_URL = Symbol('action-open-url');
 export const CHANGE_FOCUS = Symbol('action-change-focus');
 export const CLOSE_TILE = Symbol('action-close-tile');
+export const FOCUS_LEFT = Symbol('action-focus-left');
+export const FOCUS_RIGHT = Symbol('action-focus-right');
+export const FOCUS_UP = Symbol('action-focus-up');
+export const FOCUS_DOWN = Symbol('action-focus-down');
 
 export function splitVertical() {
     return {type: SPLIT_VERTICAL};
@@ -31,4 +35,17 @@ export function closeTile(tile_id) {
         type: CLOSE_TILE,
         tile_id
     };
+}
+
+export function focusLeft() {
+    return {type: FOCUS_LEFT};
+}
+export function focusRight() {
+    return {type: FOCUS_RIGHT};
+}
+export function focusUp() {
+    return {type: FOCUS_UP};
+}
+export function focusDown() {
+    return {type: FOCUS_DOWN};
 }

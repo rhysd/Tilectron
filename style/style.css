@@ -115,6 +115,16 @@ html,body {
   text-align: center;
   width: 2em;
 }
+.isolated-button {
+  cursor: pointer;
+  border: solid 1px #999999;
+  margin: 0px 8px;
+  padding: 0px 4px;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  text-align: center;
+  width: 2em;
+}
 
 .omni-input {
   box-sizing: border-box;

@@ -1,6 +1,6 @@
 import React from 'react';
 import OmniInput from './omni-input.jsx';
-import {splitVertical, splitHorizontal, closeTile} from '../actions';
+import {splitVertical, splitHorizontal, closeTile, focusLeft, focusRight, focusUp, focusDown} from '../actions';
 
 const AddressBar = props => (
     <div className="address-bar">
