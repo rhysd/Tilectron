@@ -1,5 +1,6 @@
 Tilectron: Tiling Window Browser
 ================================
+[![Build Status](https://travis-ci.org/rhysd/Tilectron.svg)](https://travis-ci.org/rhysd/Tilectron)
 
 Tilectron is tiling window browser built on [Electron](https://github.com/atom/electron).
 
