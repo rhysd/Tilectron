@@ -64,3 +64,12 @@ task :asar do
     rm_rf 'archive'
   end
 end
+
+task :lint do
+  Dir['browser/**/*.ts'].each do |f|
+    sh "tslint #{f}"
+  end
+  Dir['renderer/**/*.js', 'renderer/**/*.jsx'].each do |f|
+    sh "eslint #{f}"
+  end
+end

@@ -6,7 +6,7 @@
         ],
         "quotes": [
             2,
-            "double"
+            "single"
         ],
         "linebreak-style": [
             2,
@@ -19,12 +19,13 @@
     },
     "env": {
         "es6": true,
+        "node": true,
         "browser": true
-        "node": true
     },
     "extends": "eslint:recommended",
     "ecmaFeatures": {
         "jsx": true,
+        "modules": true,
         "experimentalObjectRestSpread": true
     },
     "plugins": [
