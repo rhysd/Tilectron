@@ -8,9 +8,9 @@ install:
     - tsd install
     - tslint --version
     - eslint --version
-    - ruby --version
 script:
     - tsc -p browser/
+    - mkdir -p ./build/renderer
     - ./node_modules/.bin/browserify -t babelify -d -o ./build/renderer/index.js ./renderer/index.jsx
     - tslint $(git ls-files | grep '.ts$')
     - eslint $(git ls-files | grep -E '\.jsx?$')
