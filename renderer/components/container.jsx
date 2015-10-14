@@ -1,11 +1,9 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import Tile from './tile.jsx';
-import {SplitType} from '../container-node';
+import ContainerNode, {SplitType} from '../container-node';
 import TileLeaf from '../tile-leaf';
 
-// TODO:
-// Use stateless container (react v0.14)
-export default class Container extends React.Component {
+export default class Container extends Component {
     getDirection() {
         return this.props.knot.split_type === SplitType.Vertical ?
                     'row' :
@@ -56,3 +54,11 @@ export default class Container extends React.Component {
         );
     }
 }
+
+Container.propTypes = {
+    current_id: PropTypes.number,
+    dispatch: PropTypes.func,
+    knot: PropTypes.instanceOf(ContainerNode),
+    style: PropTypes.object,
+    views: PropTypes.array
+};

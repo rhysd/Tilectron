@@ -1,3 +1,4 @@
+import React from 'react';
 import OmniInput from './omni-input.jsx';
 import {splitVertical, splitHorizontal, closeTile} from '../actions';
 

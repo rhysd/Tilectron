@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import {openURL} from '../actions';
 
-export default class OmniInput extends React.Component {
+export default class OmniInput extends Component {
 
     getURL(input) {
         if (!input.startsWith('?') && (input.startsWith('http://') || input.startsWith('https://'))) {
@@ -32,3 +32,7 @@ export default class OmniInput extends React.Component {
         );
     }
 }
+
+OmniInput.propTypes = {
+    dispatch: PropTypes.func
+};

@@ -1,10 +1,10 @@
-import React from 'react';
+import React,{PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
 import TileLeaf from '../tile-leaf';
 import Tile from './tile.jsx';
 import Container from './container.jsx';
 
-class App extends React.Component {
+class App extends Component {
     renderTree() {
         const {dispatch, tree, current_id, views} = this.props;
         const common_props = {
@@ -29,6 +29,13 @@ class App extends React.Component {
         );
     }
 }
+
+App.propTypes = {
+    current_id: PropTypes.number,
+    dispatch: PropTypes.func,
+    tree: PropTypes.object,
+    views: PropTypes.array
+};
 
 function select(state) {
     return state;
