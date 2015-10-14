@@ -1,6 +1,6 @@
-import {SPLIT_VERTICAL, SPLIT_HORIZONTAL, OPEN_URL, CHANGE_FOCUS, CLOSE_TILE} from './actions'
-import TileLeaf from './tile-leaf'
-import ContainerNode, {SplitType} from './container-node'
+import {SPLIT_VERTICAL, SPLIT_HORIZONTAL, OPEN_URL, CHANGE_FOCUS, CLOSE_TILE} from './actions';
+import TileLeaf from './tile-leaf';
+import ContainerNode, {SplitType} from './container-node';
 // When splitting the reducer logically, combine it by combineReducers()
 // import {combineReducers} from 'redux'
 
@@ -11,7 +11,7 @@ let init = {
     next_id: 1,
     tree: new TileLeaf(null, 0),
     current_id: 0,
-    views: {},
+    views: {}
 };
 
 function splitTile(state, type) {
@@ -39,12 +39,12 @@ function splitTile(state, type) {
     return next_state;
 }
 
-function closeTile(state, id) {
+function closeTile(state, target_id) {
     let next_state = {...state};
-    let target_leaf = state.tree.searchLeaf(state.current_id);
+    let target_leaf = state.tree.searchLeaf(target_id);
 
     if (target_leaf === null) {
-        console.log('Invalid id: ' + state.current_id);
+        console.log('Invalid id: ' + target_id);
         return next_state; // Error
     }
 
@@ -66,7 +66,7 @@ function closeTile(state, id) {
         parent_of_parent.replaceChild(target_parent, opposite_child);
     }
 
-    if (next_state.current_id === target_leaf.id) {
+    if (next_state.current_id === target_id) {
         next_state.current_id = opposite_child.id;
     }
 

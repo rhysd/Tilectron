@@ -1,7 +1,7 @@
-import React from 'react'
-import AddressBar from './address-bar.jsx'
-import OmniInput from './omni-input.jsx'
-import {changeFocus} from '../actions'
+import React from 'react';
+import AddressBar from './address-bar.jsx';
+import OmniInput from './omni-input.jsx';
+import {changeFocus} from '../actions';
 
 // TODO:
 // Use stateless container (react v0.14)
@@ -13,7 +13,7 @@ export default class Tile extends React.Component {
     }
 
     getClass() {
-        return this.isFocused() ? "tile focused" : "tile";
+        return this.isFocused() ? 'tile focused' : 'tile';
     }
 
     focusMe() {
@@ -49,7 +49,7 @@ export default class Tile extends React.Component {
                 </div>
                 {children}
             </div>
-        )
+        );
     }
 
     render() {
