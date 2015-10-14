@@ -1,7 +1,7 @@
-import React from 'react'
-import Tile from './tile.jsx'
-import {SplitType} from '../container-node'
-import TileLeaf from '../tile-leaf'
+import React from 'react';
+import Tile from './tile.jsx';
+import {SplitType} from '../container-node';
+import TileLeaf from '../tile-leaf';
 
 // TODO:
 // Use stateless container (react v0.14)
@@ -32,7 +32,7 @@ export default class Container extends React.Component {
             style: this.getChildStyle(),
             current_id,
             views,
-            dispatch,
+            dispatch
         };
 
         if (tree instanceof TileLeaf) {

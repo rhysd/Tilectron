@@ -1,5 +1,5 @@
-import React from 'react'
-import {openURL} from '../actions'
+import React from 'react';
+import {openURL} from '../actions';
 
 export default class OmniInput extends React.Component {
 

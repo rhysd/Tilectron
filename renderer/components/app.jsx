@@ -1,9 +1,8 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {splitVertical, splitHorizontal} from '../actions'
-import TileLeaf from '../tile-leaf'
-import Tile from './tile.jsx'
-import Container from './container.jsx'
+import React from 'react';
+import {connect} from 'react-redux';
+import TileLeaf from '../tile-leaf';
+import Tile from './tile.jsx';
+import Container from './container.jsx';
 
 class App extends React.Component {
     renderTree() {
