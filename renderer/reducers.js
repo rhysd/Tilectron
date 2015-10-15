@@ -32,9 +32,9 @@ function closeTile(state, target_id) {
         next_state.current_id = survived_tile_id;
     }
 
-    if (state.views[survived_tile_id]) {
+    if (state.views[target_id]) {
         next_state.views = {...next_state.views};
-        delete next_state.views[survived_tile_id];
+        delete next_state.views[target_id];
     }
 
     return next_state;
@@ -94,10 +94,10 @@ function swapTiles(state, id) {
 }
 
 export default function tilectron(state = init, action) {
-    console.log(action);
+    const id = action.tile_id !== undefined ? action.tile_id : state.current_id;
     switch (action.type) {
     case CHANGE_FOCUS:
-        return changeFocus(state, action.tile_id || state.current_id);
+        return changeFocus(state, id);
     case SPLIT_VERTICAL:
         return splitTile(state, SplitType.Vertical);
     case SPLIT_HORIZONTAL:
@@ -105,7 +105,7 @@ export default function tilectron(state = init, action) {
     case OPEN_URL:
         return openURL(state, action.url);
     case CLOSE_TILE:
-        return closeTile(state, action.tile_id || state.current_id);
+        return closeTile(state, id);
     case FOCUS_LEFT:
         return focusNeighbor(state, state.tree.getLeftOf(state.current_id));
     case FOCUS_RIGHT:
@@ -115,9 +115,9 @@ export default function tilectron(state = init, action) {
     case FOCUS_DOWN:
         return focusNeighbor(state, state.tree.getDownOf(state.current_id));
     case SWITCH_SPLIT:
-        return switchSplit(state, action.tile_id || state.current_id);
+        return switchSplit(state, id);
     case SWAP_TILES:
-        return swapTiles(state, action.tile_id || state.current_id);
+        return swapTiles(state, id);
     default:
         console.log('Unknown action: ' + action.type);
         return state;
