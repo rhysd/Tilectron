@@ -5,10 +5,10 @@ import {splitVertical, splitHorizontal, closeTile} from '../actions';
 const AddressBar = props => (
     <div className="address-bar">
         <div className="split leftside-button" onClick={() => props.dispatch(splitVertical())}>
-            {'+ '}<i className="fa fa-arrows-h"/>
+            <i className="fa fa-arrows-h"/>
         </div>
         <div className="split rightside-button" onClick={() => props.dispatch(splitHorizontal())}>
-            {'+ '}<i className="fa fa-arrows-v"/>
+            <i className="fa fa-arrows-v"/>
         </div>
         <div className="leftside-button">
             <i className="fa fa-arrow-left"/>
