@@ -28,11 +28,16 @@ export default class OmniInput extends Component {
 
     render() {
         return (
-            <input className="omni-input" type="search" placeholder="URL or words..." onKeyPress={this.onInputChar.bind(this)}/>
+            <input className="omni-input" type="search" placeholder="URL or words..." onKeyPress={this.onInputChar.bind(this)} autoFocus={this.props.autoFocus}/>
         );
     }
 }
 
+OmniInput.defaultProps = {
+    autoFocus: false
+};
+
 OmniInput.propTypes = {
+    autoFocus: PropTypes.bool,
     dispatch: PropTypes.func
 };

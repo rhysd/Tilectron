@@ -52,10 +52,10 @@ const KeyHandlerSinglton = new KeyHandler({
     's v': 'splitVertical',
     's h': 'splitHorizontal',
     'x': 'closeTile',
-    'h': 'focusLeft',
-    'l': 'focusRight',
-    'j': 'focusDown',
-    'k': 'focusUp',
+    'ctrl+h': 'focusLeft',
+    'ctrl+l': 'focusRight',
+    'ctrl+j': 'focusDown',
+    'ctrl+k': 'focusUp',
     'ctrl+s': 'switchSplit',
     's s': 'swapTiles'
 });
