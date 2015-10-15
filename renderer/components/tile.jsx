@@ -1,11 +1,10 @@
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
 import AddressBar from './address-bar.jsx';
 import OmniInput from './omni-input.jsx';
+import WebPage from './web-page.jsx';
 import {changeFocus} from '../actions';
 
-// TODO:
-// Use stateless container (react v0.14)
-export default class Tile extends React.Component {
+export default class Tile extends Component {
 
     isFocused() {
         const {current_id, leaf} = this.props;
@@ -21,56 +20,46 @@ export default class Tile extends React.Component {
         dispatch(changeFocus(leaf.id));
     }
 
-    // XXX
-    mountWebView() {
-        if (this.view) {
-            // When <webview> is already open.
-            this.refs.tile.appendChild(this.view);
-            if (this.isFocused()) {
-                this.view.focus();
-            }
-        } else {
-            if (this.isFocused()) {
-                this.refs.tile.focus();
-            }
+    renderAddressBar(dispatch, leaf) {
+        if (!this.isFocused()) {
+            return undefined;
         }
-    }
-
-    componentDidMount() {
-        this.mountWebView();
-    }
-
-    componentDidUpdate() {
-        this.mountWebView();
-    }
-
-    renderFrame(children) {
-        const addr_style = {
-            display: this.isFocused() ? '' : 'none'
-        };
 
         return (
-            <div className={this.getClass()} style={this.props.style} onMouseOver={this.focusMe.bind(this)} ref="tile">
-                <div className="addr-bar-wrapper animated fadeInDown" style={addr_style}>
-                    <AddressBar dispatch={this.props.dispatch} tile_id={this.props.leaf.id} webview={this.view}/>
-                </div>
-                {children}
+            <div className="addr-bar-wrapper animated fadeInDown">
+                <AddressBar dispatch={dispatch} tileId={leaf.id}/>
             </div>
         );
     }
 
-    render() {
-        const {leaf, views, dispatch} = this.props;
-        this.view = views[leaf.id];
-
-        if (!this.view) {
-            return this.renderFrame(
+    renderContent(view, dispatch) {
+        if (view) {
+            return <WebPage webview={view} focused={this.isFocused()}/>;
+        } else {
+            return (
                 <div className="new-window">
                     <OmniInput dispatch={dispatch} autoFocus/>
                 </div>
             );
         }
+    }
 
-        return this.renderFrame(undefined);
+    render() {
+        const {leaf, views, dispatch, style} = this.props;
+        const view = views[leaf.id];
+        return (
+            <div className={this.getClass()} style={style} onMouseOver={this.focusMe.bind(this)}>
+                {this.renderAddressBar(dispatch, leaf)}
+                {this.renderContent(view, dispatch)}
+            </div>
+        );
     }
 }
+
+Tile.propTypes = {
+    current_id: PropTypes.number,
+    dispatch: PropTypes.func,
+    leaf: PropTypes.object,
+    style: PropTypes.object,
+    views: PropTypes.object
+};

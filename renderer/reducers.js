@@ -94,6 +94,7 @@ function swapTiles(state, id) {
 }
 
 export default function tilectron(state = init, action) {
+    console.log(action);
     switch (action.type) {
     case CHANGE_FOCUS:
         return changeFocus(state, action.tile_id || state.current_id);
