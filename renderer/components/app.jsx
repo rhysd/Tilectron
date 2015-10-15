@@ -3,8 +3,13 @@ import {connect} from 'react-redux';
 import {TileLeaf} from '../tile-tree';
 import Tile from './tile.jsx';
 import Container from './container.jsx';
+import KeyHandler from '../key-handler';
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        KeyHandler.start(this.props.dispatch);
+    }
     renderTree() {
         const {dispatch, root, current_id, views} = this.props;
         const common_props = {

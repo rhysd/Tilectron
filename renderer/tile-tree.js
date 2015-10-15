@@ -126,18 +126,23 @@ export default class TileTree {
             return null;
         }
 
-        console.log(target_node);
-
         if (parent.split_type === split_type) {
-            const c = parent.getChild(
-                    direction === Direction.Left ?
+            const opposite_dir = direction === Direction.Left ?
                         Direction.Right :
-                        Direction.Left
-                );
+                        Direction.Left;
+            const opposite = parent.getChild(opposite_dir);
 
-            if (c === target_node) {
+            if (opposite === target_node) {
                 // Found!
-                return parent.getChild(direction).id;
+                let c = parent.getChild(direction);
+                while (c instanceof ContainerKnot) {
+                    if (c.split_type === split_type) {
+                        c = c.getChild(opposite_dir);
+                    } else {
+                        c = c.left;
+                    }
+                }
+                return c.id;
             }
         }
 

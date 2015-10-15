@@ -72,7 +72,6 @@ function changeFocus(state, new_id) {
 }
 
 function focusNeighbor(state, next_current_id) {
-    console.log('next current: ' + next_current_id);
     let next_state = {...state};
     if (next_current_id === null) {
         return next_state;
