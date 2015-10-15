@@ -49,7 +49,7 @@ export class ContainerKnot {
         }
     }
 
-    getAnotherChild(child) {
+    getSiblingOf(child) {
         if (this.left === child) {
             return this.right;
         } else if (this.right === child) {
@@ -103,20 +103,20 @@ export default class TileTree {
             return null; // Root
         }
 
-        const opposite_child = target_parent.getAnotherChild(target_leaf);
-        if (opposite_child === null) {
+        const sibling = target_parent.getSiblingOf(target_leaf);
+        if (sibling === null) {
             return null; // Error
         }
 
         const parent_of_parent = target_parent.parent;
         if (parent_of_parent === null) {
-            this.root = opposite_child;
-            opposite_child.parent = null;
+            this.root = sibling;
+            sibling.parent = null;
         } else {
-            parent_of_parent.replaceChild(target_parent, opposite_child);
+            parent_of_parent.replaceChild(target_parent, sibling);
         }
 
-        return opposite_child.id;
+        return sibling.id;
     }
 
     getNeighborImpl(target_node, direction, split_type) {
@@ -130,9 +130,9 @@ export default class TileTree {
             const opposite_dir = direction === Direction.Left ?
                         Direction.Right :
                         Direction.Left;
-            const opposite = parent.getChild(opposite_dir);
+            const sibling = parent.getChild(opposite_dir);
 
-            if (opposite === target_node) {
+            if (sibling === target_node) {
                 // Found!
                 let c = parent.getChild(direction);
                 while (c instanceof ContainerKnot) {
@@ -180,5 +180,17 @@ export default class TileTree {
         target_leaf.parent.split_type =
             target_leaf.parent.split_type === SplitType.Vertical ?
                 SplitType.Horizontal : SplitType.Vertical;
+    }
+
+    swapTiles(id) {
+        const t = this.root.searchLeaf(id);
+        if (t === null || t.parent === null) {
+            return;
+        }
+
+        const p = t.parent;
+        const tmp = p.right;
+        p.right = p.left;
+        p.left = tmp;
     }
 }

@@ -1,5 +1,5 @@
 import Mousetrap from 'mousetrap';
-import {splitVertical, splitHorizontal, closeTile, focusLeft, focusRight, focusUp, focusDown, switchSplit} from './actions';
+import {splitVertical, splitHorizontal, closeTile, focusLeft, focusRight, focusUp, focusDown, switchSplit, swapTiles} from './actions';
 
 export const ActionMap = {
     splitVertical,
@@ -9,7 +9,8 @@ export const ActionMap = {
     focusRight,
     focusUp,
     focusDown,
-    switchSplit
+    switchSplit,
+    swapTiles
 };
 
 export class KeyHandler {
@@ -32,7 +33,7 @@ export class KeyHandler {
             }
 
             Mousetrap.bind(key, () => {
-                console.log(key);
+                console.log(key + ': ' + action_name);
                 dispatch(ActionMap[action_name]());
             });
         }
@@ -55,7 +56,8 @@ const KeyHandlerSinglton = new KeyHandler({
     'l': 'focusRight',
     'j': 'focusDown',
     'k': 'focusUp',
-    'ctrl+s': 'switchSplit'
+    'ctrl+s': 'switchSplit',
+    's s': 'swapTiles'
 });
 
 export default KeyHandlerSinglton;
