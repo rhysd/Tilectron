@@ -32,25 +32,25 @@ export default class Tile extends Component {
         );
     }
 
-    renderContent(view, dispatch) {
-        if (view) {
-            return <WebPage webview={view} focused={this.isFocused()}/>;
+    renderContent(page, dispatch, leaf) {
+        if (page) {
+            return <WebPage webview={page.webview} focused={this.isFocused()}/>;
         } else {
             return (
                 <div className="new-window">
-                    <OmniInput dispatch={dispatch} autoFocus/>
+                    <OmniInput dispatch={dispatch} tileId={leaf.id} autoFocus/>
                 </div>
             );
         }
     }
 
     render() {
-        const {leaf, views, dispatch, style} = this.props;
-        const view = views[leaf.id];
+        const {leaf, pages, dispatch, style} = this.props;
+        const page = pages[leaf.id];
         return (
             <div className={this.getClass()} style={style} onMouseOver={this.focusMe.bind(this)}>
                 {this.renderAddressBar(dispatch, leaf)}
-                {this.renderContent(view, dispatch)}
+                {this.renderContent(page, dispatch, leaf)}
             </div>
         );
     }
@@ -60,6 +60,6 @@ Tile.propTypes = {
     current_id: PropTypes.number,
     dispatch: PropTypes.func,
     leaf: PropTypes.object,
-    style: PropTypes.object,
-    views: PropTypes.object
+    pages: PropTypes.object,
+    style: PropTypes.object
 };

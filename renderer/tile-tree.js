@@ -1,7 +1,11 @@
 export class TileLeaf {
     constructor(parent, id) {
-        this.id = id;
         this.parent = parent;
+        this.id = id;
+    }
+
+    clone() {
+        return new TileLeaf(this.parent, this.id);
     }
 
     searchLeaf(id) {
@@ -27,6 +31,15 @@ export class ContainerKnot {
         this.left.parent = this;
         this.right.parent = this;
         this.split_type = type;
+    }
+
+    clone() {
+        return new ContainerKnot(
+            this.parent,
+            this.left,
+            this.right,
+            this.split_type
+        );
     }
 
     replaceChild(old_child, new_child) {
@@ -66,9 +79,16 @@ export class ContainerKnot {
 }
 
 export default class TileTree {
-    constructor() {
-        this.root = new TileLeaf(null, 0);
-        this.next_id = 1;
+    constructor(root, next_id) {
+        this.root = root || new TileLeaf(null, 0);
+        this.next_id = next_id || 1;
+    }
+
+    // Note:
+    // Clone both self and its root because react component detects different properties.
+    // <App/> component takes the root as property, not tree.
+    clone() {
+        return new TileTree(this.root.clone(), this.next_id);
     }
 
     split(id, split_type) {
@@ -180,6 +200,9 @@ export default class TileTree {
         target_leaf.parent.split_type =
             target_leaf.parent.split_type === SplitType.Vertical ?
                 SplitType.Horizontal : SplitType.Vertical;
+
+        // Return new tree for updating react component
+        return this.clone();
     }
 
     swapTiles(id) {
@@ -192,5 +215,8 @@ export default class TileTree {
         const tmp = p.right;
         p.right = p.left;
         p.left = tmp;
+
+        // Return new tree for updating react component
+        return this.clone();
     }
 }

@@ -24,11 +24,11 @@ export default class Container extends Component {
     }
 
     renderTree(tree) {
-        const {current_id, views, dispatch} = this.props;
+        const {current_id, pages, dispatch} = this.props;
         const common_props = {
             style: this.getChildStyle(),
             current_id,
-            views,
+            pages,
             dispatch
         };
 
@@ -58,6 +58,6 @@ Container.propTypes = {
     current_id: PropTypes.number,
     dispatch: PropTypes.func,
     knot: PropTypes.instanceOf(ContainerKnot),
-    style: PropTypes.object,
-    views: PropTypes.object
+    pages: PropTypes.object,
+    style: PropTypes.object
 };

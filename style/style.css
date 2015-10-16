@@ -71,7 +71,7 @@ html,body {
 }
 .inner-view {
   width: 100%;
-  height: calc(100% - 30px); /*Consider height of address bar*/
+  height: 100%; /*Consider height of address bar*/
   flex: auto;
 }
 .addr-bar-wrapper {
@@ -99,7 +99,7 @@ html,body {
   width: 1.5em;
 }
 
-.leftside-button {
+.address-bar .leftside-button {
   cursor: pointer;
   border: solid 1px #999999;
   margin-left: 8px;
@@ -111,7 +111,7 @@ html,body {
   width: 1.5em;
   background-color: #eeeeee;
 }
-.rightside-button {
+.address-bar .rightside-button {
   cursor: pointer;
   border: solid 1px #999999;
   margin-right: 8px;
@@ -123,7 +123,7 @@ html,body {
   width: 1.5em;
   background-color: #eeeeee;
 }
-.isolated-button {
+.address-bar .isolated-button {
   cursor: pointer;
   border: solid 1px #999999;
   margin: 0px 8px;
@@ -134,6 +134,9 @@ html,body {
   width: 1.5em;
   background-color: #eeeeee;
 }
+.address-bar .disabled {
+  color: #cccccc;
+}
 
 .omni-input {
   box-sizing: border-box;
@@ -141,5 +144,5 @@ html,body {
 }
 
 .web-page {
-  height: 100%;
+  height: calc(100% - 30px);
 }
