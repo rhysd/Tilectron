@@ -11,6 +11,9 @@ export default class PageState {
         this.webview.src = start_url;
         this.url = start_url;
         this.loading = true;
+        this.can_go_back = false;
+        this.can_go_forward = false;
+        this.is_crashed = false;
 
         this.registerCallbacks(dispatch);
     }
@@ -26,20 +29,23 @@ export default class PageState {
             }
         });
 
-        const stopped = event => {
-            dispatch(notifyEndLoading(this.tile_id));
+        this.webview.addEventListener(
+            'did-finish-load',
+            () => dispatch(notifyEndLoading(this.tile_id))
+        );
+
+        this.webview.addEventListener('did-fail-load', event => {
             if (event.errorCode) {
                 console.log(`Failed loading: ${event.validatedUrl}: ${event.errorDescription}`);
             }
-        };
-        this.webview.addEventListener('did-finish-load', stopped);
-        this.webview.addEventListener('did-fail-load', stopped);
+        });
     }
 
     updateStatus() {
         this.can_go_back = this.webview.canGoBack();
         this.can_go_forward = this.webview.canGoForward();
         this.is_crashed = this.webview.isCrashed();
+        this.loading = this.webview.isLoading();
         this.url = this.webview.getUrl();
     }
 
@@ -62,5 +68,9 @@ export default class PageState {
 
     reload() {
         this.webview.reload();
+    }
+
+    stop() {
+        this.webview.stop();
     }
 }

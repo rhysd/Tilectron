@@ -1,34 +1,43 @@
-import React, {Component, PropTypes} from 'react';
+import React from 'react';
 import OmniInput from './omni-input.jsx';
 import {splitVertical, splitHorizontal, closeTile} from '../actions';
 
-export default class AddressBar extends Component {
-    render() {
-        const {dispatch, page, tileId} = this.props;
-        return (
-            <div className="address-bar">
-                <div className="split leftside-button" onClick={() => dispatch(splitVertical())}>
-                    <i className="fa fa-arrows-h"/>
-                </div>
-                <div className="split rightside-button" onClick={() => dispatch(splitHorizontal())}>
-                    <i className="fa fa-arrows-v"/>
-                </div>
-                <div className="leftside-button" onClick={() => page && page.goBack()}>
-                    <i className="fa fa-arrow-left"/>
-                </div>
-                <div className="rightside-button" onClick={() => page && page.goForward()}>
-                    <i className="fa fa-arrow-right"/>
-                </div>
-                <i className="fa fa-refresh icon-button" onClick={() => page && page.reload()}/>
-                <OmniInput dispatch={dispatch} tileId={tileId} page={page}/>
-                <i className="fa fa-times icon-button" onClick={() => dispatch(closeTile(tileId))}/>
-            </div>
-        );
+function disabledClass(attr, enabled) {
+    if (enabled) {
+        return attr;
+    } else {
+        return attr + ' disabled';
     }
 }
 
-AddressBar.propTypes = {
-    dispatch: PropTypes.func,
-    page: PropTypes.object,
-    tileId: PropTypes.number
-};
+function renderRefreshButton(page) {
+    if (page && page.loading) {
+        return <i className={disabledClass('fa fa-times icon-button', !!page)} onClick={() => page && page.stop()}/>;
+    } else {
+        return <i className={disabledClass('fa fa-refresh icon-button', !!page)} onClick={() => page && page.reload()}/>;
+    }
+}
+
+export default function AddressBar(props) {
+    const {dispatch, page, tileId} = props;
+    return (
+        <div className="address-bar">
+            <div className="split leftside-button" onClick={() => dispatch(splitVertical())}>
+                <i className="fa fa-arrows-h"/>
+            </div>
+            <div className="split rightside-button" onClick={() => dispatch(splitHorizontal())}>
+                <i className="fa fa-arrows-v"/>
+            </div>
+            <div className={disabledClass('leftside-button', page && page.can_go_back)} onClick={() => page && page.goBack()}>
+                <i className="fa fa-arrow-left"/>
+            </div>
+            <div className={disabledClass('rightside-button', page && page.can_go_forward)} onClick={() => page && page.goForward()}>
+                <i className="fa fa-arrow-right"/>
+            </div>
+            {renderRefreshButton(page)}
+            <OmniInput dispatch={dispatch} tileId={tileId} page={page}/>
+            <i className="fa fa-times icon-button" onClick={() => dispatch(closeTile(tileId))}/>
+        </div>
+    );
+}
+
