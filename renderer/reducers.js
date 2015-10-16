@@ -44,7 +44,7 @@ function closeTile(state, target_id) {
 function openPage(state, page) {
     let next_state = {...state};
     next_state.pages = {...state.pages};
-    next_state.pages[state.current_id] = page;
+    next_state.pages[page.tile_id] = page;
     return next_state;
 }
 
@@ -97,7 +97,7 @@ export default function tilectron(state = init, action) {
     const id = action.tile_id !== undefined ? action.tile_id : state.current_id;
     switch (action.type) {
     case CHANGE_FOCUS:
-        return changeFocus(state, action.tile_id || state.current_id);
+        return changeFocus(state, id);
     case NOTIFY_START_LOADING:
         return notifyStartLoading(state, id, action.url);
     case NOTIFY_END_LOADING:
@@ -109,7 +109,7 @@ export default function tilectron(state = init, action) {
     case OPEN_PAGE:
         return openPage(state, action.page);
     case CLOSE_TILE:
-        return closeTile(state, action.tile_id || state.current_id);
+        return closeTile(state, id);
     case FOCUS_LEFT:
         return focusNeighbor(state, state.tree.getLeftOf(state.current_id));
     case FOCUS_RIGHT:
@@ -119,9 +119,9 @@ export default function tilectron(state = init, action) {
     case FOCUS_DOWN:
         return focusNeighbor(state, state.tree.getDownOf(state.current_id));
     case SWITCH_SPLIT:
-        return switchSplit(state, action.tile_id || state.current_id);
+        return switchSplit(state, id);
     case SWAP_TILES:
-        return swapTiles(state, action.tile_id || state.current_id);
+        return swapTiles(state, id);
     default:
         console.log('Unknown action: ' + action.type);
         return state;

@@ -67,7 +67,7 @@ export default class Tile extends React.Component {
         if (!this.page) {
             return this.renderFrame(
                 <div className="new-window">
-                    <OmniInput dispatch={dispatch} autoFocus/>
+                    <OmniInput dispatch={dispatch} tileId={leaf.id} autoFocus/>
                 </div>
             );
         }
