@@ -58,6 +58,6 @@ Container.propTypes = {
     current_id: PropTypes.number,
     dispatch: PropTypes.func,
     knot: PropTypes.instanceOf(ContainerKnot),
-    style: PropTypes.object,
-    pages: PropTypes.object
+    pages: PropTypes.object,
+    style: PropTypes.object
 };

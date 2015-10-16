@@ -49,6 +49,9 @@ function openPage(state, page) {
 }
 
 function changeFocus(state, new_id) {
+    if (state.current_id === new_id) {
+        return state;
+    }
     let next_state = {...state};
     next_state.current_id = new_id;
     return next_state;
@@ -66,13 +69,13 @@ function focusNeighbor(state, next_current_id) {
 
 function switchSplit(state, id) {
     let next_state = {...state};
-    next_state.tree.switchSplitType(id);
+    next_state.tree = next_state.tree.switchSplitType(id);
     return next_state;
 }
 
 function swapTiles(state, id) {
     let next_state = {...state};
-    next_state.tree.swapTiles(id);
+    next_state.tree = next_state.tree.swapTiles(id);
     return next_state;
 }
 

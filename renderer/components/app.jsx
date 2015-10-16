@@ -38,8 +38,8 @@ class App extends Component {
 App.propTypes = {
     current_id: PropTypes.number,
     dispatch: PropTypes.func,
-    root: PropTypes.object,
-    pages: PropTypes.object
+    pages: PropTypes.object,
+    root: PropTypes.object
 };
 
 function select(state) {
