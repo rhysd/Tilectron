@@ -4,7 +4,7 @@ import {splitVertical, splitHorizontal, closeTile} from '../actions';
 
 export default class AddressBar extends Component {
     render() {
-        const {dispatch, webview, tileId} = this.props;
+        const {dispatch, page, tileId} = this.props;
         return (
             <div className="address-bar">
                 <div className="split leftside-button" onClick={() => dispatch(splitVertical())}>
@@ -13,14 +13,14 @@ export default class AddressBar extends Component {
                 <div className="split rightside-button" onClick={() => dispatch(splitHorizontal())}>
                     <i className="fa fa-arrows-v"/>
                 </div>
-                <div className="leftside-button" onClick={() => webview && webview.canGoBack() && webview.goBack()}>
+                <div className="leftside-button" onClick={() => page && page.goBack()}>
                     <i className="fa fa-arrow-left"/>
                 </div>
-                <div className="rightside-button" onClick={() => webview && webview.canGoForward() && webview.goForward()}>
+                <div className="rightside-button" onClick={() => page && page.goForward()}>
                     <i className="fa fa-arrow-right"/>
                 </div>
-                <i className="fa fa-refresh icon-button" onClick={() => webview && webview.reload()}/>
-                <OmniInput dispatch={dispatch}/>
+                <i className="fa fa-refresh icon-button" onClick={() => page && page.reload()}/>
+                <OmniInput dispatch={dispatch} tileId={tileId} page={page}/>
                 <i className="fa fa-times icon-button" onClick={() => dispatch(closeTile(tileId))}/>
             </div>
         );
@@ -29,6 +29,6 @@ export default class AddressBar extends Component {
 
 AddressBar.propTypes = {
     dispatch: PropTypes.func,
-    tileId: PropTypes.number,
-    webview: PropTypes.object
+    page: PropTypes.object,
+    tileId: PropTypes.number
 };

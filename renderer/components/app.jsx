@@ -11,11 +11,11 @@ class App extends Component {
         KeyHandler.start(this.props.dispatch);
     }
     renderTree() {
-        const {dispatch, root, current_id, views} = this.props;
+        const {dispatch, root, current_id, pages} = this.props;
         const common_props = {
             style: {flex: 'auto'},
             current_id,
-            views,
+            pages,
             dispatch
         };
 
@@ -39,16 +39,16 @@ App.propTypes = {
     current_id: PropTypes.number,
     dispatch: PropTypes.func,
     root: PropTypes.object,
-    views: PropTypes.object
+    pages: PropTypes.object
 };
 
 function select(state) {
-    const {current_id, dispatch, tree, views} = state;
+    const {current_id, dispatch, tree, pages} = state;
     return {
         root: tree.root,
         current_id,
         dispatch,
-        views
+        pages
     };
 }
 

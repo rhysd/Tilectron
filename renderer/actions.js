@@ -1,6 +1,6 @@
 export const SPLIT_VERTICAL = Symbol('action-split-vertical');
 export const SPLIT_HORIZONTAL = Symbol('action-split-horizontal');
-export const OPEN_URL = Symbol('action-open-url');
+export const OPEN_PAGE = Symbol('action-open-page');
 export const CHANGE_FOCUS = Symbol('action-change-focus');
 export const CLOSE_TILE = Symbol('action-close-tile');
 export const FOCUS_LEFT = Symbol('action-focus-left');
@@ -9,6 +9,8 @@ export const FOCUS_UP = Symbol('action-focus-up');
 export const FOCUS_DOWN = Symbol('action-focus-down');
 export const SWITCH_SPLIT = Symbol('action-switch-split');
 export const SWAP_TILES = Symbol('action-swap-tiles');
+export const NOTIFY_START_LOADING = Symbol('action-notify-start-loading');
+export const NOTIFY_END_LOADING = Symbol('action-notify-end-loading');
 
 export function splitVertical() {
     return {type: SPLIT_VERTICAL};
@@ -18,10 +20,10 @@ export function splitHorizontal() {
     return {type: SPLIT_HORIZONTAL};
 }
 
-export function openURL(url) {
+export function openPage(page) {
     return {
-        type: OPEN_URL,
-        url
+        type: OPEN_PAGE,
+        page
     };
 }
 
@@ -62,6 +64,21 @@ export function switchSplit(tile_id) {
 export function swapTiles(tile_id) {
     return {
         type: SWAP_TILES,
+        tile_id
+    };
+}
+
+export function notifyStartLoading(tile_id, url) {
+    return {
+        type: NOTIFY_START_LOADING,
+        tile_id,
+        url
+    };
+}
+
+export function notifyEndLoading(tile_id) {
+    return {
+        type: NOTIFY_END_LOADING,
         tile_id
     };
 }

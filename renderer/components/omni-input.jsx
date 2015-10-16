@@ -1,5 +1,6 @@
 import React, {PropTypes, Component} from 'react';
-import {openURL} from '../actions';
+import {openPage} from '../actions';
+import PageState from '../page-state';
 
 export default class OmniInput extends Component {
 
@@ -21,9 +22,14 @@ export default class OmniInput extends Component {
             return;
         }
 
-        this.props.dispatch(
-            openURL(this.getURL(input))
-        );
+        const {dispatch, page, tileId} = this.props;
+        const url = this.getURL(input);
+
+        if (page) {
+            page.openURL(url);
+        } else {
+            dispatch(openPage(new PageState(url, tileId, dispatch)));
+        }
     }
 
     render() {
@@ -39,5 +45,7 @@ OmniInput.defaultProps = {
 
 OmniInput.propTypes = {
     autoFocus: PropTypes.bool,
-    dispatch: PropTypes.func
+    dispatch: PropTypes.func,
+    page: PropTypes.object,
+    tileId: PropTypes.number
 };

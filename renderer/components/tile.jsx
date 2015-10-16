@@ -23,17 +23,18 @@ export default class Tile extends React.Component {
 
     // XXX
     mountWebView() {
-        if (this.view) {
+        if (this.page) {
             // When <webview> is already open.
-            this.refs.tile.appendChild(this.view);
+            this.refs.tile.appendChild(this.page.webview);
             if (this.isFocused()) {
-                this.view.focus();
+                this.page.webview.focus();
             }
         } else {
             if (this.isFocused()) {
                 this.refs.tile.focus();
             }
         }
+
     }
 
     componentDidMount() {
@@ -52,7 +53,7 @@ export default class Tile extends React.Component {
         return (
             <div className={this.getClass()} style={this.props.style} onMouseOver={this.focusMe.bind(this)} ref="tile">
                 <div className="addr-bar-wrapper animated fadeInDown" style={addr_style}>
-                    <AddressBar dispatch={this.props.dispatch} tile_id={this.props.leaf.id} webview={this.view}/>
+                    <AddressBar dispatch={this.props.dispatch} tile_id={this.props.leaf.id} page={this.page}/>
                 </div>
                 {children}
             </div>
@@ -60,10 +61,10 @@ export default class Tile extends React.Component {
     }
 
     render() {
-        const {leaf, views, dispatch} = this.props;
-        this.view = views[leaf.id];
+        const {leaf, pages, dispatch} = this.props;
+        this.page = pages[leaf.id];
 
-        if (!this.view) {
+        if (!this.page) {
             return this.renderFrame(
                 <div className="new-window">
                     <OmniInput dispatch={dispatch} autoFocus/>
