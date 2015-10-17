@@ -4,14 +4,14 @@ import OmniInput from './omni-input.jsx';
 import WebPage from './web-page.jsx';
 import {changeFocus} from '../actions';
 
-function renderAddressBar(dispatch, leaf, focused) {
+function renderAddressBar(page, dispatch, leaf, focused) {
     if (!focused) {
         return undefined;
     }
 
     return (
         <div className="addr-bar-wrapper animated fadeInUp">
-            <AddressBar dispatch={dispatch} tileId={leaf.id}/>
+            <AddressBar page={page} dispatch={dispatch} tileId={leaf.id}/>
         </div>
     );
 }
@@ -36,7 +36,7 @@ export default function Tile(props) {
     return (
         <div className={name} style={style} onMouseOver={() => dispatch(changeFocus(leaf.id))}>
             {renderContent(page, dispatch, leaf, focused)}
-            {renderAddressBar(dispatch, leaf, focused)}
+            {renderAddressBar(page, dispatch, leaf, focused)}
         </div>
     );
 }
