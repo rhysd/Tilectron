@@ -10,6 +10,7 @@ export default class PageState {
 
         this.webview.src = start_url;
         this.url = start_url;
+        this.title = '';
         this.loading = true;
         this.can_go_back = false;
         this.can_go_forward = false;
@@ -47,6 +48,7 @@ export default class PageState {
         this.is_crashed = this.webview.isCrashed();
         this.loading = this.webview.isLoading();
         this.url = this.webview.getUrl();
+        this.title = this.webview.getTitle();
     }
 
     openURL(url) {

@@ -1,5 +1,6 @@
 import {SPLIT_VERTICAL, SPLIT_HORIZONTAL, OPEN_PAGE, CHANGE_FOCUS, CLOSE_TILE, FOCUS_LEFT, FOCUS_RIGHT, FOCUS_UP, FOCUS_DOWN, SWITCH_SPLIT, SWAP_TILES, NOTIFY_START_LOADING, NOTIFY_END_LOADING} from './actions';
 import TileTree, {SplitType} from './tile-tree';
+import PageHistory from './history';
 
 // When splitting the reducer logically, combine it by combineReducers()
 // import {combineReducers} from 'redux'
@@ -10,7 +11,8 @@ import TileTree, {SplitType} from './tile-tree';
 let init = {
     tree: new TileTree(),
     current_id: 0,
-    pages: {}
+    pages: {},
+    histories: PageHistory
 };
 
 function splitTile(state, type) {
@@ -91,7 +93,9 @@ function notifyStartLoading(state, id, url) {
 function notifyEndLoading(state, id) {
     const next_state = {...state};
     next_state.pages = {...state.pages};
-    next_state.pages[id].updateStatus();
+    const p = next_state.pages[id];
+    p.updateStatus();
+    next_state.histories.add(p.url, p.title);
     return next_state;
 }
 

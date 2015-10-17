@@ -37,15 +37,11 @@ export class KeyHandler {
         for (const key in this.keymaps) {
             const action_name = this.keymaps[key];
             if (ActionMap[action_name]) {
-                Mousetrap.bind(key, () => {
-                    console.log(key + ': ' + action_name);
-                    dispatch(ActionMap[action_name]());
-                });
+                Mousetrap.bind(key, () => dispatch(ActionMap[action_name]()));
                 continue;
             }
 
             if (PureActionMap[action_name]) {
-                console.log(key + ': ' + action_name);
                 Mousetrap.bind(key, PureActionMap[action_name]);
                 continue;
             }
