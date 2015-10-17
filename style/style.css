@@ -88,7 +88,7 @@ html,body {
   width: 100%;
   box-sizing: border-box;
   color: #666666;
-  border-bottom: solid 1px #999999;
+  border-top: solid 1px #999999;
   flex: auto;
   height: 30px;
 }
@@ -144,5 +144,5 @@ html,body {
 }
 
 .web-page {
-  height: calc(100% - 30px);
+  height: 100%;
 }

@@ -18,8 +18,9 @@ export default class WebPage extends Component {
     }
 
     render() {
+        const height = this.props.focused ? 'calc(100% - 30px)' : '100%';
         return (
-            <div className="web-page" ref="body">
+            <div className="web-page" style={{height}} ref="body">
             </div>
         );
     }

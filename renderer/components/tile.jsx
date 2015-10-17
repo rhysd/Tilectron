@@ -15,18 +15,13 @@ export default class Tile extends Component {
         return this.isFocused() ? 'tile focused' : 'tile';
     }
 
-    focusMe() {
-        const {dispatch, leaf} = this.props;
-        dispatch(changeFocus(leaf.id));
-    }
-
     renderAddressBar(dispatch, leaf) {
         if (!this.isFocused()) {
             return undefined;
         }
 
         return (
-            <div className="addr-bar-wrapper animated fadeInDown">
+            <div className="addr-bar-wrapper animated fadeInUp">
                 <AddressBar dispatch={dispatch} tileId={leaf.id}/>
             </div>
         );
@@ -48,9 +43,9 @@ export default class Tile extends Component {
         const {leaf, pages, dispatch, style} = this.props;
         const page = pages[leaf.id];
         return (
-            <div className={this.getClass()} style={style} onMouseOver={this.focusMe.bind(this)}>
-                {this.renderAddressBar(dispatch, leaf)}
+            <div className={this.getClass()} style={style} onMouseOver={() => dispatch(changeFocus(leaf.id))}>
                 {this.renderContent(page, dispatch, leaf)}
+                {this.renderAddressBar(dispatch, leaf)}
             </div>
         );
     }
