@@ -1,5 +1,6 @@
 import Mousetrap from 'mousetrap';
 import {splitVertical, splitHorizontal, closeTile, focusLeft, focusRight, focusUp, focusDown, switchSplit, swapTiles} from './actions';
+import {scrollDownPage, scrollUpPage, scrollRightPage, scrollLeftPage, toggleDevTools} from './pure-actions';
 
 export const ActionMap = {
     splitVertical,
@@ -11,6 +12,14 @@ export const ActionMap = {
     focusDown,
     switchSplit,
     swapTiles
+};
+
+export const PureActionMap = {
+    toggleDevTools,
+    scrollDownPage,
+    scrollUpPage,
+    scrollRightPage,
+    scrollLeftPage
 };
 
 export class KeyHandler {
@@ -27,15 +36,21 @@ export class KeyHandler {
     start(dispatch) {
         for (const key in this.keymaps) {
             const action_name = this.keymaps[key];
-            if (!ActionMap[action_name]) {
-                console.log('Invalid action name: ' + action_name);
+            if (ActionMap[action_name]) {
+                Mousetrap.bind(key, () => {
+                    console.log(key + ': ' + action_name);
+                    dispatch(ActionMap[action_name]());
+                });
                 continue;
             }
 
-            Mousetrap.bind(key, () => {
+            if (PureActionMap[action_name]) {
                 console.log(key + ': ' + action_name);
-                dispatch(ActionMap[action_name]());
-            });
+                Mousetrap.bind(key, PureActionMap[action_name]);
+                continue;
+            }
+
+            console.log('Invalid action name: ' + action_name);
         }
     }
 
@@ -49,6 +64,10 @@ export class KeyHandler {
 }
 
 const KeyHandlerSinglton = new KeyHandler({
+    'h': 'scrollLeftPage',
+    'j': 'scrollDownPage',
+    'k': 'scrollUpPage',
+    'l': 'scrollRightPage',
     's v': 'splitVertical',
     's h': 'splitHorizontal',
     'x': 'closeTile',
@@ -57,7 +76,8 @@ const KeyHandlerSinglton = new KeyHandler({
     'ctrl+j': 'focusDown',
     'ctrl+k': 'focusUp',
     'ctrl+s': 'switchSplit',
-    's s': 'swapTiles'
+    's s': 'swapTiles',
+    'mod+shift+i': 'toggleDevTools'
 });
 
 export default KeyHandlerSinglton;
