@@ -9,13 +9,17 @@ export default class StartPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            candidates: ['foo', 'bar', 'baz'],
+            candidates: this.props.histories.all(),
             search_input: ''
         };
     }
 
     onInputChar(event) {
         console.log(event);
+    }
+
+    makeHistoryItemString(history) {
+        return `${history.title}: ${history.url} (${history.created_at.toLocaleString()})`;
     }
 
     renderCandidates() {
