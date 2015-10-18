@@ -1,7 +1,11 @@
 html,body {
-  margin: 0px;
   width: 100%;
   height: 100%;
+}
+
+body {
+  margin: 0px;
+  font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
 }
 
 .app {
@@ -148,6 +152,7 @@ html,body {
 }
 
 .start-page {
+  display: flex;
   flex-direction: column;
   height: 100%;
   box-sizing: border-box;
@@ -158,6 +163,10 @@ html,body {
 .start-page .favorites {
   height: calc((100vh - 1.5em) / 2);
 }
+.start-page .temporary-message {
+  text-align: center;
+  color: #dddddd;
+}
 .start-page .history-input {
   box-sizing: border-box;
   width: 100%;
@@ -166,15 +175,32 @@ html,body {
 }
 .start-page .history-candidates {
   box-sizing: border-box;
-  width: 100%;
   margin: 8px;
-  border: solid 1px #666666;
-  border-radius: 0.25em;
+  border: solid 1px #bbbbbb;
 }
 .start-page .history-item {
   box-sizing: border-box;
-  height: 1.5em;
-  width: 100%;
-  border: solid 1px #666666;
+  height: 2.5em;
+  border-bottom: solid 1px #bbbbbb;
   background-color: white;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+.start-page .history-item > * {
+  text-overflow: ellipsis;
+  padding: 0px 8px;
+}
+.start-page .history-title {
+  color: #333333;
+  font-weight: bold;
+  flex: none;
+}
+.start-page .history-url {
+  color: #2185d0;
+  flex: auto;
+}
+.start-page .history-visited-at {
+  color: #999999;
+  flex: none;
 }

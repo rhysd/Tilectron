@@ -30,8 +30,13 @@ export default class StartPage extends Component {
         const items = [];
         const max_items = Math.min(this.state.candidates.length, max_items_by_space);
         for (let i = 0; i < max_items; ++i) {
+            const h = this.state.candidates[i];
             items.push(
-                <div className="history-item" key={i}>test candidate</div>
+                <div className="history-item" key={i}>
+                    <a className="history-title" href={h.url}>{h.title}</a>
+                    <a className="history-url" href={h.url}>{h.url}</a>
+                    <span className="history-visited-at">({h.created_at})</span>
+                </div>
             );
         }
         return items;
@@ -40,7 +45,9 @@ export default class StartPage extends Component {
     render() {
         return (
             <div className="start-page">
-                <div className="favorites"/>
+                <div className="favorites">
+                    <h1 className="temporary-message">Favorite URLs Here</h1>
+                </div>
                 <input className="history-input"type="search" placeholder="Search history" onKeyPress={this.onInputChar.bind(this)}/>
                 <div className="history-candidates">
                     {this.renderCandidates()}
