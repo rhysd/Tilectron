@@ -11,12 +11,13 @@ class App extends Component {
         KeyHandler.start(this.props.dispatch);
     }
     renderTree() {
-        const {dispatch, root, current_id, pages} = this.props;
+        const {dispatch, histories, root, current_id, pages} = this.props;
         const common_props = {
             style: {flex: 'auto'},
             current_id,
-            pages,
-            dispatch
+            dispatch,
+            histories,
+            pages
         };
 
         if (root instanceof TileLeaf) {
@@ -38,16 +39,18 @@ class App extends Component {
 App.propTypes = {
     current_id: PropTypes.number,
     dispatch: PropTypes.func,
+    histories: PropTypes.object,
     pages: PropTypes.object,
     root: PropTypes.object
 };
 
 function select(state) {
-    const {current_id, dispatch, tree, pages} = state;
+    const {current_id, dispatch, histories, tree, pages} = state;
     return {
         root: tree.root,
         current_id,
         dispatch,
+        histories,
         pages
     };
 }

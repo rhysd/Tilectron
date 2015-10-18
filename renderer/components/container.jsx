@@ -24,12 +24,13 @@ export default class Container extends Component {
     }
 
     renderTree(tree) {
-        const {current_id, pages, dispatch} = this.props;
+        const {current_id, histories, pages, dispatch} = this.props;
         const common_props = {
             style: this.getChildStyle(),
             current_id,
-            pages,
-            dispatch
+            dispatch,
+            histories,
+            pages
         };
 
         if (tree instanceof TileLeaf) {
@@ -57,6 +58,7 @@ export default class Container extends Component {
 Container.propTypes = {
     current_id: PropTypes.number,
     dispatch: PropTypes.func,
+    histories: PropTypes.object,
     knot: PropTypes.instanceOf(ContainerKnot),
     pages: PropTypes.object,
     style: PropTypes.object
