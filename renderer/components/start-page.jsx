@@ -11,7 +11,7 @@ export default class StartPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            candidates: this.props.histories.all(),
+            candidates: this.props.histories.all(), // eslint-disable-line react/prop-types
             search_input: ''
         };
     }

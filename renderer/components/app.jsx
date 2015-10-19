@@ -8,8 +8,9 @@ import KeyHandler from '../key-handler';
 class App extends Component {
     constructor(props) {
         super(props);
-        KeyHandler.start(this.props.dispatch);
+        KeyHandler.start(this.props.dispatch); // eslint-disable-line react/prop-types
     }
+
     renderTree() {
         const {dispatch, histories, root, current_id, pages} = this.props;
         const common_props = {
