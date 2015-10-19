@@ -21,7 +21,7 @@ function renderContent(page, dispatch, leaf, focused, histories) {
         return <WebPage webview={page.webview} focused={focused}/>;
     } else {
         return (
-            <StartPage histories={histories}/>
+            <StartPage tileId={leaf.id} histories={histories} dispatch={dispatch}/>
         );
     }
 }

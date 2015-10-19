@@ -1,4 +1,6 @@
 import React, {Component, PropTypes} from 'react';
+import PageState from '../page-state';
+import {openPage} from '../actions';
 
 // XXX:
 // This component has local state.
@@ -15,11 +17,33 @@ export default class StartPage extends Component {
     }
 
     onInputChar(event) {
-        console.log(event);
-    }
+        const input = event.target.value;
+        if (!input) {
+            return;
+        }
 
-    makeHistoryItemString(history) {
-        return `${history.title}: ${history.url} (${history.created_at.toLocaleString()})`;
+        const {dispatch, histories, tileId} = this.props;
+
+        if (String.fromCharCode(event.charCode) === '\r') {
+            event.preventDefault();
+
+            if (this.state.candidates.length === 0) {
+                return;
+            }
+
+            const c = this.state.candidates[0];
+            dispatch(openPage(new PageState(c.url, tileId, dispatch)));
+            return;
+        }
+
+        if (this.state.search_input === input) {
+            return;
+        }
+
+        this.setState({
+            candidates: histories.search(input),
+            search_input: input
+        });
     }
 
     renderCandidates() {
@@ -58,5 +82,7 @@ export default class StartPage extends Component {
 }
 
 StartPage.propTypes = {
-    histories: PropTypes.object
+    dispatch: PropTypes.func,
+    histories: PropTypes.object,
+    tileId: PropTypes.number
 };

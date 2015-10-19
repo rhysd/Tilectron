@@ -22,6 +22,8 @@ export default class OmniInput extends Component {
             return;
         }
 
+        event.preventDefault();
+
         const {dispatch, page, tileId} = this.props;
         const url = this.getURL(input);
 

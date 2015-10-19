@@ -6,9 +6,9 @@ export class PageHistory {
             persistenceMethod: 'localStorage'
         };
         this.loaded = false;
-        this.db = new loki('histories.db', opts);
+        this.db = new loki('tilectron.db', opts);
         this.db.loadDatabase(opts, () => {this.loaded = true;});
-        global.db = this.db;
+        global.__db = this.db;
     }
 
     getCollection() {
@@ -40,7 +40,7 @@ export class PageHistory {
             title,
             created_at: (new Date(Date.now())).toLocaleString()
         });
-        this.db.saveDatabase(err => console.log(err));
+        this.db.saveDatabase(err => err && console.log(err));
     }
 
     all() {
@@ -50,7 +50,7 @@ export class PageHistory {
     search(word) {
         return this.getCollection().where(entry =>
             entry.url.indexOf(word) !== -1 || entry.title.indexOf(word) !== -1
-        ).data();
+        );
     }
 }
 
