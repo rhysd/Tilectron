@@ -16,24 +16,28 @@ export default class StartPage extends Component {
         };
     }
 
+    checkEnter(event) {
+        if (String.fromCharCode(event.charCode) !== '\r') {
+            return;
+        }
+        event.preventDefault();
+
+        const {dispatch, tileId} = this.props;
+
+        const input = this.state.candidates.length === 0 ?
+                        event.target.value : this.state.candidates[0].url;
+        if (input) {
+            dispatch(openPage(new PageState(input, tileId, dispatch)));
+        }
+    }
+
     onInputChar(event) {
         const input = event.target.value;
         if (!input) {
-            return;
-        }
-
-        const {dispatch, histories, tileId} = this.props;
-
-        if (String.fromCharCode(event.charCode) === '\r') {
-            event.preventDefault();
-
-            if (this.state.candidates.length === 0) {
-                dispatch(openPage(new PageState(input, tileId, dispatch)));
-                return;
-            }
-
-            const c = this.state.candidates[0];
-            dispatch(openPage(new PageState(c.url, tileId, dispatch)));
+            this.setState({
+                candidates: this.props.histories.all(),
+                search_input: input
+            });
             return;
         }
 
@@ -42,6 +46,10 @@ export default class StartPage extends Component {
         }
 
         if (input.startsWith(this.state.search_input)) {
+            if (this.state.candidates.length === 0) {
+                return;
+            }
+
             // Narrow candidates
             this.setState({
                 candidates: this.state.candidates.filter(
@@ -52,21 +60,25 @@ export default class StartPage extends Component {
         } else {
             // Fallback to querying DB
             this.setState({
-                candidates: histories.search(input),
+                candidates: this.props.histories.search(input),
                 search_input: input
             });
         }
 
     }
 
-    renderCandidates() {
-        // TODO:
-        // Calculate the number of histories to display.
-        const max_items_by_space = 5;
+    calculateMaxItems() {
+        const body_height = document.body.clientHeight;
+        const items_area_height = (body_height - (8 + 20 + 8)) / 2;
+        const item_height = 40;
+        return Math.floor(items_area_height / item_height);
+    }
 
+    renderCandidates() {
+        const max_items_by_space = this.calculateMaxItems();
         const items = [];
         const max_items = Math.min(this.state.candidates.length, max_items_by_space);
-        for (let i = 0; i < max_items; ++i) {
+        for (let i = max_items - 1; i >= 0; --i) {
             const h = this.state.candidates[i];
             items.push(
                 <div className="history-item" key={i}>
@@ -85,7 +97,7 @@ export default class StartPage extends Component {
                 <div className="favorites">
                     <h1 className="temporary-message">Favorite URLs Here</h1>
                 </div>
-                <input className="history-input"type="search" placeholder="Search history" onKeyPress={this.onInputChar.bind(this)}/>
+                <input className="history-input"type="search" placeholder="Search history" onInput={this.onInputChar.bind(this)} onKeyPress={this.checkEnter.bind(this)}/>
                 <div className="history-candidates">
                     {this.renderCandidates()}
                 </div>
