@@ -22,6 +22,8 @@ export default class OmniInput extends Component {
             return;
         }
 
+        event.preventDefault();
+
         const {dispatch, page, tileId} = this.props;
         const url = this.getURL(input);
 
@@ -46,6 +48,6 @@ OmniInput.defaultProps = {
 OmniInput.propTypes = {
     autoFocus: PropTypes.bool,
     dispatch: PropTypes.func,
-    page: PropTypes.object,
+    page: PropTypes.instanceOf(PageState),
     tileId: PropTypes.number
 };

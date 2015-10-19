@@ -1,6 +1,8 @@
 import React, {PropTypes, Component} from 'react';
 import Tile from './tile.jsx';
 import {ContainerKnot, TileLeaf, SplitType} from '../tile-tree';
+import {PageHistory} from '../history';
+import PageState from '../page-state';
 
 export default class Container extends Component {
     getDirection() {
@@ -24,12 +26,13 @@ export default class Container extends Component {
     }
 
     renderTree(tree) {
-        const {current_id, pages, dispatch} = this.props;
+        const {current_id, histories, pages, dispatch} = this.props;
         const common_props = {
             style: this.getChildStyle(),
             current_id,
-            pages,
-            dispatch
+            dispatch,
+            histories,
+            pages
         };
 
         if (tree instanceof TileLeaf) {
@@ -57,7 +60,8 @@ export default class Container extends Component {
 Container.propTypes = {
     current_id: PropTypes.number,
     dispatch: PropTypes.func,
+    histories: PropTypes.instanceOf(PageHistory),
     knot: PropTypes.instanceOf(ContainerKnot),
-    pages: PropTypes.object,
-    style: PropTypes.object
+    pages: PropTypes.objectOf(PropTypes.instanceOf(PageState)),
+    style: PropTypes.objectOf(PropTypes.string)
 };
