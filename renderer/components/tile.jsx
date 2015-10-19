@@ -21,7 +21,7 @@ function renderContent(page, dispatch, leaf, focused, histories) {
         return <WebPage webview={page.webview} focused={focused}/>;
     } else {
         return (
-            <StartPage tileId={leaf.id} histories={histories} dispatch={dispatch}/>
+            <StartPage tileId={leaf.id} focused={focused} histories={histories} dispatch={dispatch}/>
         );
     }
 }
@@ -31,6 +31,7 @@ export default function Tile(props) {
     const focused = current_id === leaf.id;
     const name = focused ? 'tile focused' : 'tile';
     const page = pages[leaf.id];
+
     return (
         <div className={name} style={style} onMouseOver={() => dispatch(changeFocus(leaf.id))}>
             {renderContent(page, dispatch, leaf, focused, histories)}

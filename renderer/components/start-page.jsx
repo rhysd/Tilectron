@@ -102,8 +102,9 @@ export default class StartPage extends Component {
     }
 
     render() {
+        const height = this.props.focused ? 'calc(100% - 30px)' : '100%';
         return (
-            <div className="start-page">
+            <div className="start-page" style={{height}}>
                 <div className="favorites">
                     <h1 className="temporary-message">Favorite URLs Here</h1>
                 </div>
@@ -118,6 +119,7 @@ export default class StartPage extends Component {
 
 StartPage.propTypes = {
     dispatch: PropTypes.func,
+    focused: PropTypes.bool,
     histories: PropTypes.object,
     tileId: PropTypes.number
 };
