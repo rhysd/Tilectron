@@ -19,7 +19,7 @@
         "no-console": 0,
         "jsx-quotes": 2,
         "react/display-name": 0,
-        "react/forbid-prop-types": 1,
+        "react/forbid-prop-types": 2,
         "react/jsx-boolean-value": 2,
         "react/jsx-closing-bracket-location": 2,
         "react/jsx-curly-spacing": 2,

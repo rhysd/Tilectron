@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import PageState from '../page-state';
 import {openPage} from '../actions';
+import {PageHistory} from '../history';
 
 // XXX:
 // This component has local state.
@@ -120,6 +121,6 @@ export default class StartPage extends Component {
 StartPage.propTypes = {
     dispatch: PropTypes.func,
     focused: PropTypes.bool,
-    histories: PropTypes.object,
+    histories: PropTypes.instanceOf(PageHistory),
     tileId: PropTypes.number
 };

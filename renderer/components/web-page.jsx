@@ -28,5 +28,5 @@ export default class WebPage extends Component {
 
 WebPage.propTypes = {
     focused: PropTypes.bool,
-    webview: PropTypes.object
+    webview: PropTypes.instanceOf(HTMLElement)
 };
