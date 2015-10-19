@@ -28,6 +28,7 @@ export default class StartPage extends Component {
             event.preventDefault();
 
             if (this.state.candidates.length === 0) {
+                dispatch(openPage(new PageState(input, tileId, dispatch)));
                 return;
             }
 
@@ -40,10 +41,22 @@ export default class StartPage extends Component {
             return;
         }
 
-        this.setState({
-            candidates: histories.search(input),
-            search_input: input
-        });
+        if (input.startsWith(this.state.search_input)) {
+            // Narrow candidates
+            this.setState({
+                candidates: this.state.candidates.filter(
+                                c => c.url.indexOf(input) !== -1 || c.title.indexOf(input) !== -1
+                            ),
+                search_input: input
+            });
+        } else {
+            // Fallback to querying DB
+            this.setState({
+                candidates: histories.search(input),
+                search_input: input
+            });
+        }
+
     }
 
     renderCandidates() {

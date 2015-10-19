@@ -31,16 +31,19 @@ export class PageHistory {
     }
 
     add(url, title) {
+        const entry = {
+            url,
+            title,
+            created_at: (new Date(Date.now())).toLocaleString()
+        };
+
         // Note:
         // This expression emits 'Duplicate key' error log on inserting entry which already exists.
         // Now it is simply ignored.
         // Attempt to insert duplicate key -> Check uniqueness -> Rollback -> emit error
-        this.getCollection().insert({
-            url,
-            title,
-            created_at: (new Date(Date.now())).toLocaleString()
-        });
+        this.getCollection().insert(entry);
         this.db.saveDatabase(err => err && console.log(err));
+        console.log('added:', entry);
     }
 
     all() {
