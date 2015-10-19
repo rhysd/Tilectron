@@ -67,6 +67,16 @@ export default class StartPage extends Component {
 
     }
 
+    openLink(event) {
+        event.preventDefault();
+        const url = event.target.href;
+        if (!url) {
+            return;
+        }
+        const {dispatch, tileId} = this.props;
+        dispatch(openPage(new PageState(url, tileId, dispatch)));
+    }
+
     calculateMaxItems() {
         const body_height = document.body.clientHeight;
         const items_area_height = (body_height - (8 + 20 + 8)) / 2;
@@ -82,8 +92,8 @@ export default class StartPage extends Component {
             const h = this.state.candidates[i];
             items.push(
                 <div className="history-item" key={i}>
-                    <a className="history-title" href={h.url}>{h.title}</a>
-                    <a className="history-url" href={h.url}>{h.url}</a>
+                    <a className="history-title" href={h.url} onClick={this.openLink.bind(this)}>{h.title}</a>
+                    <a className="history-url" href={h.url} onClick={this.openLink.bind(this)}>{h.url}</a>
                     <span className="history-visited-at">({h.created_at})</span>
                 </div>
             );
