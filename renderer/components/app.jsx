@@ -1,9 +1,11 @@
 import React,{PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
-import {TileLeaf} from '../tile-tree';
+import {TileLeaf, ContainerKnot} from '../tile-tree';
 import Tile from './tile.jsx';
 import Container from './container.jsx';
 import KeyHandler from '../key-handler';
+import {PageHistory} from '../history';
+import PageState from '../page-state';
 
 class App extends Component {
     constructor(props) {
@@ -40,9 +42,12 @@ class App extends Component {
 App.propTypes = {
     current_id: PropTypes.number,
     dispatch: PropTypes.func,
-    histories: PropTypes.object,
-    pages: PropTypes.object,
-    root: PropTypes.object
+    histories: PropTypes.instanceOf(PageHistory),
+    pages: PropTypes.objectOf(PropTypes.instanceOf(PageState)),
+    root: PropTypes.oneOfType([
+        PropTypes.instanceOf(TileLeaf),
+        PropTypes.instanceOf(ContainerKnot)
+    ])
 };
 
 function select(state) {

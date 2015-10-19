@@ -48,6 +48,6 @@ OmniInput.defaultProps = {
 OmniInput.propTypes = {
     autoFocus: PropTypes.bool,
     dispatch: PropTypes.func,
-    page: PropTypes.object,
+    page: PropTypes.instanceOf(PageState),
     tileId: PropTypes.number
 };

@@ -1,6 +1,8 @@
 import React, {PropTypes, Component} from 'react';
 import Tile from './tile.jsx';
 import {ContainerKnot, TileLeaf, SplitType} from '../tile-tree';
+import {PageHistory} from '../history';
+import PageState from '../page-state';
 
 export default class Container extends Component {
     getDirection() {
@@ -58,8 +60,8 @@ export default class Container extends Component {
 Container.propTypes = {
     current_id: PropTypes.number,
     dispatch: PropTypes.func,
-    histories: PropTypes.object,
+    histories: PropTypes.instanceOf(PageHistory),
     knot: PropTypes.instanceOf(ContainerKnot),
-    pages: PropTypes.object,
-    style: PropTypes.object
+    pages: PropTypes.objectOf(PropTypes.instanceOf(PageState)),
+    style: PropTypes.objectOf(PropTypes.string)
 };
