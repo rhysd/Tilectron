@@ -3,15 +3,6 @@ import {openPage} from '../actions';
 import PageState from '../page-state';
 
 export default class OmniInput extends Component {
-
-    getURL(input) {
-        if (!input.startsWith('?') && (input.startsWith('http://') || input.startsWith('https://'))) {
-            return input;
-        } else {
-            return 'https://www.google.co.jp/search?q=' + input; // TODO: Escape
-        }
-    }
-
     onInputChar(event) {
         if (String.fromCharCode(event.charCode) !== '\r') {
             return;
@@ -25,12 +16,10 @@ export default class OmniInput extends Component {
         event.preventDefault();
 
         const {dispatch, page, tileId} = this.props;
-        const url = this.getURL(input);
-
         if (page) {
-            page.openURL(url);
+            page.open(input);
         } else {
-            dispatch(openPage(new PageState(url, tileId, dispatch)));
+            dispatch(openPage(new PageState(input, tileId, dispatch)));
         }
     }
 

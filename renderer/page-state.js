@@ -8,8 +8,8 @@ export default class PageState {
 
         // TODO: Inject JavaScript here using 'preload'
 
-        this.webview.src = start_url;
-        this.url = start_url;
+        this.url = this.getURL(start_url);
+        this.webview.src = this.url;
         this.title = '';
         this.loading = true;
         this.can_go_back = false;
@@ -17,6 +17,14 @@ export default class PageState {
         this.is_crashed = false;
 
         this.registerCallbacks(dispatch);
+    }
+
+    getURL(input) {
+        if (!input.startsWith('?') && (input.startsWith('http://') || input.startsWith('https://'))) {
+            return input;
+        } else {
+            return 'https://www.google.co.jp/search?q=' + input; // TODO: Escape
+        }
     }
 
     // Note:
@@ -51,9 +59,9 @@ export default class PageState {
         this.title = this.webview.getTitle();
     }
 
-    openURL(url) {
-        this.url = url;
-        this.webview.src = url;
+    open(url) {
+        this.url = this.getURL(url);
+        this.webview.src = this.url;
     }
 
     goBack() {

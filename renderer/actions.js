@@ -11,6 +11,7 @@ export const SWITCH_SPLIT = Symbol('action-switch-split');
 export const SWAP_TILES = Symbol('action-swap-tiles');
 export const NOTIFY_START_LOADING = Symbol('action-notify-start-loading');
 export const NOTIFY_END_LOADING = Symbol('action-notify-end-loading');
+export const UPDATE_SEARCH = Symbol('action-update-search');
 
 export function splitVertical() {
     return {type: SPLIT_VERTICAL};
@@ -80,5 +81,14 @@ export function notifyEndLoading(tile_id) {
     return {
         type: NOTIFY_END_LOADING,
         tile_id
+    };
+}
+
+export function updateSearch(tile_id, search_input, end = false) {
+    return {
+        type: UPDATE_SEARCH,
+        tile_id,
+        search_input,
+        end
     };
 }

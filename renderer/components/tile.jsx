@@ -16,25 +16,25 @@ function renderAddressBar(page, dispatch, leaf, focused) {
     );
 }
 
-function renderContent(page, dispatch, leaf, focused, histories) {
+function renderContent(page, dispatch, leaf, focused, histories, search) {
     if (page) {
         return <WebPage webview={page.webview} focused={focused}/>;
     } else {
         return (
-            <StartPage tileId={leaf.id} focused={focused} histories={histories} dispatch={dispatch}/>
+            <StartPage tileId={leaf.id} focused={focused} histories={histories} search={search} dispatch={dispatch}/>
         );
     }
 }
 
 export default function Tile(props) {
-    const {current_id, leaf, pages, dispatch, style, histories} = props;
+    const {current_id, leaf, pages, dispatch, searches, style, histories} = props;
     const focused = current_id === leaf.id;
     const name = focused ? 'tile focused' : 'tile';
     const page = pages[leaf.id];
 
     return (
         <div className={name} style={style} onMouseOver={() => dispatch(changeFocus(leaf.id))}>
-            {renderContent(page, dispatch, leaf, focused, histories)}
+            {renderContent(page, dispatch, leaf, focused, histories, searches[leaf.id])}
             {renderAddressBar(page, dispatch, leaf, focused)}
         </div>
     );
