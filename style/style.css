@@ -162,10 +162,10 @@ body {
 }
 .start-page .favorites {
   height: calc((100vh - 1.5em) / 2);
-}
-.start-page .temporary-message {
   text-align: center;
-  color: #dddddd;
+}
+.start-page .favorites > img {
+  opacity: 0.3;
 }
 .start-page .history-input {
   box-sizing: border-box;

@@ -1,4 +1,4 @@
-Tilectron: Tiling Window Browser
+<img alt="logo" width="42px" src="resources/tilectron.svg"/> Tilectron: Tiling Window Browser
 ================================
 [![Build Status](https://travis-ci.org/rhysd/Tilectron.svg)](https://travis-ci.org/rhysd/Tilectron)
 

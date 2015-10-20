@@ -107,7 +107,7 @@ export default class StartPage extends Component {
         return (
             <div className="start-page" style={{height}}>
                 <div className="favorites">
-                    <h1 className="temporary-message">Favorite URLs Here</h1>
+                    <img src="resources/tilectron.svg"/>
                 </div>
                 <input className="history-input"type="search" placeholder="Search history" onInput={this.onInputChar.bind(this)} onKeyPress={this.checkEnter.bind(this)}/>
                 <div className="history-candidates">
