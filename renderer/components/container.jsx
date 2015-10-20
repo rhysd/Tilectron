@@ -3,6 +3,7 @@ import Tile from './tile.jsx';
 import {ContainerKnot, TileLeaf, SplitType} from '../tile-tree';
 import {PageHistory} from '../history';
 import PageState from '../page-state';
+import Search from '../search';
 
 export default class Container extends Component {
     getDirection() {
@@ -64,6 +65,6 @@ Container.propTypes = {
     histories: PropTypes.instanceOf(PageHistory),
     knot: PropTypes.instanceOf(ContainerKnot),
     pages: PropTypes.objectOf(PropTypes.instanceOf(PageState)),
-    searches: PropTypes.object,
+    searches: PropTypes.objectOf(PropTypes.instanceOf(Search)),
     style: PropTypes.objectOf(PropTypes.string)
 };

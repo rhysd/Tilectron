@@ -6,6 +6,7 @@ import Container from './container.jsx';
 import KeyHandler from '../key-handler';
 import {PageHistory} from '../history';
 import PageState from '../page-state';
+import Search from '../search';
 
 class App extends Component {
     constructor(props) {
@@ -49,7 +50,7 @@ App.propTypes = {
         PropTypes.instanceOf(TileLeaf),
         PropTypes.instanceOf(ContainerKnot)
     ]),
-    searches: PropTypes.object
+    searches: PropTypes.objectOf(PropTypes.instanceOf(Search))
 };
 
 function select(state) {

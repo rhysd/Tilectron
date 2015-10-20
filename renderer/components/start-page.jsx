@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import PageState from '../page-state';
 import {openPage, updateSearch} from '../actions';
 import {PageHistory} from '../history';
+import Search from '../search';
 
 export default class StartPage extends Component {
     start(input) {
@@ -82,6 +83,6 @@ StartPage.propTypes = {
     dispatch: PropTypes.func,
     focused: PropTypes.bool,
     histories: PropTypes.instanceOf(PageHistory),
-    search: PropTypes.object,
+    search: PropTypes.instanceOf(Search),
     tileId: PropTypes.number
 };

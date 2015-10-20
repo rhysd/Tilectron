@@ -1,6 +1,7 @@
 import {SPLIT_VERTICAL, SPLIT_HORIZONTAL, OPEN_PAGE, CHANGE_FOCUS, CLOSE_TILE, FOCUS_LEFT, FOCUS_RIGHT, FOCUS_UP, FOCUS_DOWN, SWITCH_SPLIT, SWAP_TILES, NOTIFY_START_LOADING, NOTIFY_END_LOADING, UPDATE_SEARCH} from './actions';
 import TileTree, {SplitType} from './tile-tree';
 import PageHistory from './history';
+import Search from './search';
 
 // When splitting the reducer logically, combine it by combineReducers()
 // import {combineReducers} from 'redux'
@@ -105,14 +106,11 @@ function updateSearch(state, input, id) {
     const searches = state.searches;
     if (!input || !searches[id]) {
         next_state.searches = {...searches};
-        next_state.searches[id] = {
-            candidates: next_state.histories.all(),
-            prev_input: input
-        };
+        next_state.searches[id] = new Search(next_state.histories.all(), input);
         return next_state;
     }
 
-    const s = searches[id] || {candidates: [], prev_input: ''};
+    const s = searches[id] || new Search();
     if (s.prev_input === input) {
         return next_state;
     }
@@ -124,19 +122,11 @@ function updateSearch(state, input, id) {
 
         // Narrow candidates
         next_state.searches = {...searches};
-        next_state.searches[id] = {
-            candidates: s.candidates.filter(
-                            c => c.url.indexOf(input) !== -1 || c.title.indexOf(input) !== -1
-                        ),
-            prev_input: input
-        };
+        next_state.searches[id] = s.narrowDownBy(input);
     } else {
         // Fallback to querying DB
         next_state.searches = {...searches};
-        next_state.searches[id] = {
-            candidates: state.histories.search(input),
-            prev_input: input
-        };
+        next_state.searches[id] = new Search(state.histories.search(input), input);
     }
     return next_state;
 }
