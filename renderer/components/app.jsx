@@ -14,13 +14,14 @@ class App extends Component {
     }
 
     renderTree() {
-        const {dispatch, histories, root, current_id, pages} = this.props;
+        const {dispatch, histories, root, current_id, pages, searches} = this.props;
         const common_props = {
             style: {flex: 'auto'},
             current_id,
             dispatch,
             histories,
-            pages
+            pages,
+            searches
         };
 
         if (root instanceof TileLeaf) {
@@ -47,17 +48,19 @@ App.propTypes = {
     root: PropTypes.oneOfType([
         PropTypes.instanceOf(TileLeaf),
         PropTypes.instanceOf(ContainerKnot)
-    ])
+    ]),
+    searches: PropTypes.object
 };
 
 function select(state) {
-    const {current_id, dispatch, histories, tree, pages} = state;
+    const {current_id, dispatch, histories, tree, pages, searches} = state;
     return {
         root: tree.root,
         current_id,
         dispatch,
         histories,
-        pages
+        pages,
+        searches
     };
 }
 
