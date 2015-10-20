@@ -11,6 +11,7 @@ export default class StartPage extends Component {
         }
         const {dispatch, tileId} = this.props;
         dispatch(openPage(new PageState(input, tileId, dispatch)));
+        setTimeout(() => dispatch(updateSearch(tileId, undefined, true)), 1);
     }
 
     checkEnter(event) {
@@ -47,7 +48,6 @@ export default class StartPage extends Component {
         const max_items_by_space = this.calculateMaxItems();
         const items = [];
         const {search, histories} = this.props;
-        console.log('search', search);
         const candidates = search ? search.candidates : histories.all();
         const max_items = Math.min(candidates.length, max_items_by_space);
         for (let i = max_items - 1; i >= 0; --i) {

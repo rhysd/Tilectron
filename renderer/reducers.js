@@ -131,10 +131,9 @@ function updateSearch(state, input, id) {
     return next_state;
 }
 function endSearch(state, id) {
-    console.log('Not implemented');
     const next_state = {...state};
     next_state.searches = {...state.searches};
-    delete next_state.pages[id];
+    delete next_state.searches[id];
     return next_state;
 }
 
