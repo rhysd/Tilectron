@@ -1,4 +1,4 @@
-<img alt="logo" width="42px" src="resources/tilectron.svg"/> Tilectron: Tiling Window Browser
+<img alt="logo" height="42px" src="https://raw.githubusercontent.com/rhysd/Tilectron/master/resources/tilectron.png"/> Tilectron: Tiling Window Browser
 ================================
 [![Build Status](https://travis-ci.org/rhysd/Tilectron.svg)](https://travis-ci.org/rhysd/Tilectron)
 
@@ -21,6 +21,13 @@ This app is not ready for release.  Only [npm](https://www.npmjs.com/) package i
 $ npm install electron-prebuilt tilectron
 $ tilectron
 ```
+
+## Work in Progress
+
+- Disable node integration of webview
+- Set current page URL to omnibar
+- Try [Dexie.js](http://www.dexie.org/) for history
+- Try [immutable.js](https://facebook.github.io/immutable-js/) for state of Redux
 
 ## License
 
