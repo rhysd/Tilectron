@@ -166,6 +166,8 @@ body {
 }
 .start-page .favorites > img {
   opacity: 0.3;
+  max-width: 100%;
+  max-height: 100%;
 }
 .start-page .history-input {
   box-sizing: border-box;

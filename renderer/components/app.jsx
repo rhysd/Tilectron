@@ -10,7 +10,7 @@ import PageState from '../page-state';
 class App extends Component {
     constructor(props) {
         super(props);
-        KeyHandler.start(this.props.dispatch); // eslint-disable-line react/prop-types
+        KeyHandler.start(this.props.dispatch);
     }
 
     renderTree() {
