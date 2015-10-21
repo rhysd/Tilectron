@@ -1,9 +1,8 @@
 import React, {PropTypes, Component} from 'react';
+import Immutable from 'immutable';
 import Tile from './tile.jsx';
 import {ContainerKnot, TileLeaf, SplitType} from '../tile-tree';
 import {PageHistory} from '../history';
-import PageState from '../page-state';
-import Search from '../search';
 
 export default class Container extends Component {
     getDirection() {
@@ -64,7 +63,7 @@ Container.propTypes = {
     dispatch: PropTypes.func,
     histories: PropTypes.instanceOf(PageHistory),
     knot: PropTypes.instanceOf(ContainerKnot),
-    pages: PropTypes.objectOf(PropTypes.instanceOf(PageState)),
-    searches: PropTypes.objectOf(PropTypes.instanceOf(Search)),
+    pages: PropTypes.instanceOf(Immutable.Map),
+    searches: PropTypes.instanceOf(Immutable.Map),
     style: PropTypes.objectOf(PropTypes.string)
 };

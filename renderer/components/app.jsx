@@ -1,12 +1,11 @@
 import React,{PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
+import Immutable from 'immutable';
 import {TileLeaf, ContainerKnot} from '../tile-tree';
 import Tile from './tile.jsx';
 import Container from './container.jsx';
 import KeyHandler from '../key-handler';
 import {PageHistory} from '../history';
-import PageState from '../page-state';
-import Search from '../search';
 
 class App extends Component {
     constructor(props) {
@@ -45,12 +44,12 @@ App.propTypes = {
     current_id: PropTypes.number,
     dispatch: PropTypes.func,
     histories: PropTypes.instanceOf(PageHistory),
-    pages: PropTypes.objectOf(PropTypes.instanceOf(PageState)),
+    pages: PropTypes.instanceOf(Immutable.Map),
     root: PropTypes.oneOfType([
         PropTypes.instanceOf(TileLeaf),
         PropTypes.instanceOf(ContainerKnot)
     ]),
-    searches: PropTypes.objectOf(PropTypes.instanceOf(Search))
+    searches: PropTypes.instanceOf(Immutable.Map)
 };
 
 function select(state) {

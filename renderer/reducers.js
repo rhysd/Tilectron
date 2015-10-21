@@ -1,3 +1,4 @@
+import Immutable from 'immutable';
 import {SPLIT_VERTICAL, SPLIT_HORIZONTAL, OPEN_PAGE, CHANGE_FOCUS, CLOSE_TILE, FOCUS_LEFT, FOCUS_RIGHT, FOCUS_UP, FOCUS_DOWN, SWITCH_SPLIT, SWAP_TILES, NOTIFY_START_LOADING, NOTIFY_END_LOADING, UPDATE_SEARCH} from './actions';
 import TileTree, {SplitType} from './tile-tree';
 import PageHistory from './history';
@@ -12,8 +13,8 @@ import Search from './search';
 let init = {
     tree: new TileTree(),
     current_id: 0,
-    pages: {},
-    searches: {},
+    pages: Immutable.Map(),
+    searches: Immutable.Map(),
     histories: PageHistory
 };
 
@@ -27,8 +28,8 @@ function splitTile(state, type) {
 }
 
 function closeTile(state, target_id) {
-    let next_state = {...state};
-    let survived_tile_id = next_state.tree.remove(target_id);
+    const next_state = {...state};
+    const survived_tile_id = next_state.tree.remove(target_id);
     if (survived_tile_id === null) {
         return next_state;
     }
@@ -37,18 +38,16 @@ function closeTile(state, target_id) {
         next_state.current_id = survived_tile_id;
     }
 
-    if (state.pages[target_id]) {
-        next_state.pages = {...next_state.pages};
-        delete next_state.pages[target_id];
+    if (state.pages.has(target_id)) {
+        next_state.pages = state.pages.delete(target_id);
     }
 
     return next_state;
 }
 
 function openPage(state, page) {
-    let next_state = {...state};
-    next_state.pages = {...state.pages};
-    next_state.pages[page.tile_id] = page;
+    const next_state = {...state};
+    next_state.pages = state.pages.set(page.tile_id, page);
     return next_state;
 }
 
@@ -85,32 +84,33 @@ function swapTiles(state, id) {
 
 function notifyStartLoading(state, id, url) {
     const next_state = {...state};
-    next_state.pages = {...state.pages};
-    const p = next_state.pages[id];
-    p.loading = true;
-    p.url = url;
+    next_state.pages = state.pages.update(id, p => {
+        p.loading = true;
+        p.url = url;
+        return p;
+    });
     return next_state;
 }
 
 function notifyEndLoading(state, id) {
     const next_state = {...state};
-    next_state.pages = {...state.pages};
-    const p = next_state.pages[id];
-    p.updateStatus();
-    next_state.histories.add(p.url, p.title);
+    next_state.pages = state.pages.update(id, p => {
+        p.updateStatus();
+        next_state.histories.add(p.url, p.title);
+        return p;
+    });
     return next_state;
 }
 
 function updateSearch(state, input, id) {
     const next_state = {...state};
     const searches = state.searches;
-    if (!input || !searches[id]) {
-        next_state.searches = {...searches};
-        next_state.searches[id] = new Search(next_state.histories.all(), input);
+    if (!input || !searches.has(id)) {
+        next_state.searches = searches.set(id, new Search(next_state.histories.all(), input));
         return next_state;
     }
 
-    const s = searches[id] || new Search();
+    const s = searches.get(id, new Search());
     if (s.prev_input === input) {
         return next_state;
     }
@@ -121,19 +121,16 @@ function updateSearch(state, input, id) {
         }
 
         // Narrow candidates
-        next_state.searches = {...searches};
-        next_state.searches[id] = s.narrowDownBy(input);
+        next_state.searches = searches.set(id, s.narrowDownBy(input));
     } else {
         // Fallback to querying DB
-        next_state.searches = {...searches};
-        next_state.searches[id] = new Search(state.histories.search(input), input);
+        next_state.searches = searches.set(id, new Search(state.histories.search(input), input));
     }
     return next_state;
 }
 function endSearch(state, id) {
     const next_state = {...state};
-    next_state.searches = {...state.searches};
-    delete next_state.searches[id];
+    next_state.searches = state.searches.delete(id);
     return next_state;
 }
 

@@ -2,7 +2,7 @@ import Store from './store';
 
 function getCurrentWebview() {
     const {pages, current_id} = Store.getState();
-    const page = pages[current_id];
+    const page = pages.get(current_id);
     if (!page) {
         return null;
     }

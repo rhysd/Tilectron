@@ -57,6 +57,7 @@ export default class PageState {
         this.loading = this.webview.isLoading();
         this.url = this.webview.getUrl();
         this.title = this.webview.getTitle();
+        return this;
     }
 
     open(url) {

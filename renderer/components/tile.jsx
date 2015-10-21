@@ -30,11 +30,11 @@ export default function Tile(props) {
     const {current_id, leaf, pages, dispatch, searches, style, histories} = props;
     const focused = current_id === leaf.id;
     const name = focused ? 'tile focused' : 'tile';
-    const page = pages[leaf.id];
+    const page = pages.get(leaf.id);
 
     return (
         <div className={name} style={style} onMouseOver={() => dispatch(changeFocus(leaf.id))}>
-            {renderContent(page, dispatch, leaf, focused, histories, searches[leaf.id])}
+            {renderContent(page, dispatch, leaf, focused, histories, searches.get(leaf.id))}
             {renderAddressBar(page, dispatch, leaf, focused)}
         </div>
     );
