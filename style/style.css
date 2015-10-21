@@ -161,7 +161,7 @@ body {
   padding: 0px 8px;
 }
 .start-page .favorites {
-  height: calc((100vh - 1.5em) / 2);
+  height: calc(100vh / 2);
   text-align: center;
 }
 .start-page .favorites > img {

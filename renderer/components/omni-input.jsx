@@ -37,21 +37,23 @@ export default class OmniInput extends Component {
         } else {
             dispatch(openPage(new PageState(input, tileId, dispatch)));
         }
+        this.refs.body.blur();
     }
 
     render() {
         return (
-            <input className="omni-input" type="search" placeholder="URL or words..." onKeyPress={this.onInputChar.bind(this)} autoFocus={this.props.autoFocus} ref="body"/>
+            <input
+                className="omni-input"
+                type="search"
+                placeholder="URL or words..."
+                onKeyPress={this.onInputChar.bind(this)}
+                ref="body"
+            />
         );
     }
 }
 
-OmniInput.defaultProps = {
-    autoFocus: false
-};
-
 OmniInput.propTypes = {
-    autoFocus: PropTypes.bool,
     dispatch: PropTypes.func,
     page: PropTypes.instanceOf(PageState),
     tileId: PropTypes.number

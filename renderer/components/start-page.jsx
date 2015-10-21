@@ -49,7 +49,7 @@ export default class StartPage extends Component {
         const items = [];
         const {search, histories} = this.props;
         const candidates = search ? search.candidates : histories.all();
-        const max_items = Math.min(candidates.length, max_items_by_space);
+        const max_items = Math.min(candidates.length, max_items_by_space) - 1; // -1 because address bar exists
         for (let i = max_items - 1; i >= 0; --i) {
             const h = candidates[i];
             items.push(

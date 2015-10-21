@@ -24,10 +24,10 @@ $ tilectron
 
 ## Work in Progress
 
-- Disable node integration of webview
 - Try [Dexie.js](http://www.dexie.org/) for history
 - Do not reload page on changing layout
-- Do not show scroll bar on animation of address bar
+- When window width is narrow, use mobile browser (controlled by UserAgent)
+- Introduce hidden address bar and tabs
 
 ## License
 
