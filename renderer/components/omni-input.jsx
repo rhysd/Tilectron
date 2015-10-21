@@ -3,6 +3,22 @@ import {openPage} from '../actions';
 import PageState from '../page-state';
 
 export default class OmniInput extends Component {
+    componentDidMount() {
+        this.setURL();
+    }
+    componentDidUpdate() {
+        this.setURL();
+    }
+
+    setURL() {
+        // Note:
+        // <input value=""/> is unavailable because <input> is stateful component.
+        // ref: http://qiita.com/koba04/items/40cc217ab925ef651113
+        if (this.props.page) {
+            this.refs.body.value = this.props.page.url;
+        }
+    }
+
     onInputChar(event) {
         if (String.fromCharCode(event.charCode) !== '\r') {
             return;
@@ -25,7 +41,7 @@ export default class OmniInput extends Component {
 
     render() {
         return (
-            <input className="omni-input" type="search" placeholder="URL or words..." onKeyPress={this.onInputChar.bind(this)} autoFocus={this.props.autoFocus}/>
+            <input className="omni-input" type="search" placeholder="URL or words..." onKeyPress={this.onInputChar.bind(this)} autoFocus={this.props.autoFocus} ref="body"/>
         );
     }
 }

@@ -25,7 +25,6 @@ $ tilectron
 ## Work in Progress
 
 - Disable node integration of webview
-- Set current page URL to omnibar
 - Try [Dexie.js](http://www.dexie.org/) for history
 - Do not reload page on changing layout
 - Do not show scroll bar on animation of address bar
