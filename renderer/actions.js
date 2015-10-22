@@ -21,10 +21,11 @@ export function splitHorizontal() {
     return {type: SPLIT_HORIZONTAL};
 }
 
-export function openPage(page) {
+export function openPage(page, from_start_page = false) {
     return {
         type: OPEN_PAGE,
-        page
+        page,
+        from_start_page
     };
 }
 
@@ -83,12 +84,11 @@ export function notifyEndLoading(tile_id) {
         tile_id
     };
 }
-
-export function updateSearch(tile_id, search_input, end = false) {
+export function updateSearch(tile_id, result) {
     return {
         type: UPDATE_SEARCH,
         tile_id,
-        search_input,
-        end
+        result
     };
 }
+

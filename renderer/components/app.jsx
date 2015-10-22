@@ -5,7 +5,6 @@ import {TileLeaf, ContainerKnot} from '../tile-tree';
 import Tile from './tile.jsx';
 import Container from './container.jsx';
 import KeyHandler from '../key-handler';
-import {PageHistory} from '../history';
 
 class App extends Component {
     constructor(props) {
@@ -14,12 +13,11 @@ class App extends Component {
     }
 
     renderTree() {
-        const {dispatch, histories, root, current_id, pages, searches} = this.props;
+        const {dispatch, root, current_id, pages, searches} = this.props;
         const common_props = {
             style: {flex: 'auto'},
             current_id,
             dispatch,
-            histories,
             pages,
             searches
         };
@@ -43,7 +41,6 @@ class App extends Component {
 App.propTypes = {
     current_id: PropTypes.number,
     dispatch: PropTypes.func,
-    histories: PropTypes.instanceOf(PageHistory),
     pages: PropTypes.instanceOf(Immutable.Map),
     root: PropTypes.oneOfType([
         PropTypes.instanceOf(TileLeaf),
@@ -53,12 +50,11 @@ App.propTypes = {
 };
 
 function select(state) {
-    const {current_id, dispatch, histories, tree, pages, searches} = state;
+    const {current_id, dispatch, tree, pages, searches} = state;
     return {
         root: tree.root,
         current_id,
         dispatch,
-        histories,
         pages,
         searches
     };

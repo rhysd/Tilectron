@@ -1,8 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import PageState from '../page-state';
 import {openPage, updateSearch} from '../actions';
-import {PageHistory} from '../history';
-import Search from '../search';
+import History,{HistoryEntryType} from '../history';
 
 export default class StartPage extends Component {
     start(input) {
@@ -10,8 +9,7 @@ export default class StartPage extends Component {
             return;
         }
         const {dispatch, tileId} = this.props;
-        dispatch(openPage(new PageState(input, tileId, dispatch)));
-        setTimeout(() => dispatch(updateSearch(tileId, undefined, true)), 1);
+        dispatch(openPage(new PageState(input, tileId, dispatch), true));
     }
 
     checkEnter(event) {
@@ -21,15 +19,19 @@ export default class StartPage extends Component {
         event.preventDefault();
 
         const {search} = this.props;
-        const candidates = search ? search.candidates : [];
+        const candidates = search || [];
         const input = candidates.length === 0 ? event.target.value : candidates[0].url;
         this.start(input);
     }
 
     onInputChar(event) {
-        const {dispatch, tileId} = this.props;
-        // Send action asynchronously
-        dispatch(updateSearch(tileId, event.target.value));
+        const {dispatch, tileId, search} = this.props;
+        const input = event.target.value;
+        if (!input || search === undefined) {
+            History.all().then(cs => dispatch(updateSearch(tileId, cs)));
+        } else {
+            History.search(input).then(cs => dispatch(updateSearch(tileId, cs)));
+        }
     }
 
     openLink(event) {
@@ -47,8 +49,8 @@ export default class StartPage extends Component {
     renderCandidates() {
         const max_items_by_space = this.calculateMaxItems();
         const items = [];
-        const {search, histories} = this.props;
-        const candidates = search ? search.candidates : histories.all();
+        const {search} = this.props;
+        const candidates = search || [];
         const max_items = Math.min(candidates.length, max_items_by_space) - 1; // -1 because address bar exists
         for (let i = max_items - 1; i >= 0; --i) {
             const h = candidates[i];
@@ -56,7 +58,7 @@ export default class StartPage extends Component {
                 <div className="history-item" key={i}>
                     <a className="history-title" href={h.url} onClick={this.openLink.bind(this)}>{h.title}</a>
                     <a className="history-url" href={h.url} onClick={this.openLink.bind(this)}>{h.url}</a>
-                    <span className="history-visited-at">({h.created_at})</span>
+                    <span className="history-visited-at">({new Date(h.created_at).toLocaleString()})</span>
                 </div>
             );
         }
@@ -64,13 +66,23 @@ export default class StartPage extends Component {
     }
 
     render() {
-        const height = this.props.focused ? 'calc(100% - 30px)' : '100%';
+        const {focused, search, dispatch, tileId} = this.props;
+        const height = focused ? 'calc(100% - 30px)' : '100%';
+        if (!search) {
+            History.all().then(cs => dispatch(updateSearch(tileId, cs)));
+        }
         return (
             <div className="start-page" style={{height}}>
                 <div className="favorites">
                     <img src="resources/tilectron.svg"/>
                 </div>
-                <input className="history-input"type="search" placeholder="Search history" onInput={this.onInputChar.bind(this)} onKeyPress={this.checkEnter.bind(this)}/>
+                <input
+                    className="history-input"
+                    type="search"
+                    placeholder="Search history"
+                    onInput={this.onInputChar.bind(this)}
+                    onKeyPress={this.checkEnter.bind(this)}
+                />
                 <div className="history-candidates">
                     {this.renderCandidates()}
                 </div>
@@ -82,7 +94,6 @@ export default class StartPage extends Component {
 StartPage.propTypes = {
     dispatch: PropTypes.func,
     focused: PropTypes.bool,
-    histories: PropTypes.instanceOf(PageHistory),
-    search: PropTypes.instanceOf(Search),
+    search: PropTypes.arrayOf(HistoryEntryType),
     tileId: PropTypes.number
 };

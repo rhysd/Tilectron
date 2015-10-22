@@ -2,7 +2,6 @@ import React, {PropTypes, Component} from 'react';
 import Immutable from 'immutable';
 import Tile from './tile.jsx';
 import {ContainerKnot, TileLeaf, SplitType} from '../tile-tree';
-import {PageHistory} from '../history';
 
 export default class Container extends Component {
     getDirection() {
@@ -26,12 +25,11 @@ export default class Container extends Component {
     }
 
     renderTree(tree) {
-        const {current_id, histories, pages, searches, dispatch} = this.props;
+        const {current_id, pages, searches, dispatch} = this.props;
         const common_props = {
             style: this.getChildStyle(),
             current_id,
             dispatch,
-            histories,
             pages,
             searches
         };
@@ -61,7 +59,6 @@ export default class Container extends Component {
 Container.propTypes = {
     current_id: PropTypes.number,
     dispatch: PropTypes.func,
-    histories: PropTypes.instanceOf(PageHistory),
     knot: PropTypes.instanceOf(ContainerKnot),
     pages: PropTypes.instanceOf(Immutable.Map),
     searches: PropTypes.instanceOf(Immutable.Map),

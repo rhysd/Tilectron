@@ -1,59 +1,43 @@
-import loki from 'lokijs';
+import Dexie from 'dexie';
+import {PropTypes} from 'react';
+
+export const HistoryEntryType = PropTypes.objectOf(
+    PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ])
+);
 
 export class PageHistory {
     constructor() {
-        const opts = {
-            persistenceMethod: 'localStorage'
-        };
-        this.loaded = false;
-        this.db = new loki('tilectron.db', opts);
-        this.db.loadDatabase(opts, () => {this.loaded = true;});
-        global.__db = this.db;
-    }
-
-    getCollection() {
-        if (this.histories) {
-            return this.histories;
-        }
-        if (!this.loaded) {
-            console.log('Warning!: Database hasn\'t been not loaded yet.');
-        }
-
-        this.histories = this.db.getCollection('histories');
-        if (this.histories === null) {
-            this.histories = this.db.addCollection('histories', {
-                indices: ['url', 'title'],
-                unique: 'url'
-            });
-        }
-
-        return this.histories;
+        this.db = new Dexie('Tilectron');
+        this.db.on('error', err => console.error(err));
+        this.db.version(1).stores({
+            histories: '++id,&url,title,created_at'
+        });
+        this.db.open();
+        this.histories = this.db.histories;
+        global.__hist = this.histories;
     }
 
     add(url, title) {
-        const entry = {
+        return this.histories.add({
             url,
             title,
-            created_at: (new Date(Date.now())).toLocaleString()
-        };
-
-        // Note:
-        // This expression emits 'Duplicate key' error log on inserting entry which already exists.
-        // Now it is simply ignored.
-        // Attempt to insert duplicate key -> Check uniqueness -> Rollback -> emit error
-        this.getCollection().insert(entry);
-        this.db.saveDatabase(err => err && console.log(err));
-        console.log('added:', entry);
+            created_at: Date.now()
+        }).then(() => console.log('History added: ' + url))
+          .catch(err => console.log(`Error on add URL ${url}: ${err.message}`));
     }
 
     all() {
-        return this.getCollection().data;
+        return this.histories.toArray();
     }
 
     search(word) {
-        return this.getCollection().where(entry =>
-            entry.url.indexOf(word) !== -1 || entry.title.indexOf(word) !== -1
-        );
+        return this
+                .histories
+                .filter(h => h.url.indexOf(word) !== -1 || h.title.indexOf(word) !== -1)
+                .toArray();
     }
 }
 

@@ -24,7 +24,6 @@ $ tilectron
 
 ## Work in Progress
 
-- Try [Dexie.js](http://www.dexie.org/) for history
 - Do not reload page on changing layout
 - When window width is narrow, use mobile browser (controlled by UserAgent)
 - Introduce hidden address bar and tabs
