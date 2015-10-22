@@ -40,8 +40,10 @@ export default class StartPage extends Component {
     }
 
     calculateMaxItems() {
-        const body_height = document.body.clientHeight;
-        const items_area_height = (body_height - (8 + 20 + 8)) / 2;
+        if (this.refs.candidates === undefined) {
+            return 3; // Fallback
+        }
+        const items_area_height = this.refs.candidates.clientHeight;
         const item_height = 40;
         return Math.floor(items_area_height / item_height);
     }
@@ -51,7 +53,7 @@ export default class StartPage extends Component {
         const items = [];
         const {search} = this.props;
         const candidates = search || [];
-        const max_items = Math.min(candidates.length, max_items_by_space) - 1; // -1 because address bar exists
+        const max_items = Math.min(candidates.length, max_items_by_space);
         for (let i = max_items - 1; i >= 0; --i) {
             const h = candidates[i];
             items.push(
@@ -82,8 +84,9 @@ export default class StartPage extends Component {
                     placeholder="Search history"
                     onInput={this.onInputChar.bind(this)}
                     onKeyPress={this.checkEnter.bind(this)}
+                    autoFocus
                 />
-                <div className="history-candidates">
+                <div className="history-candidates" ref="candidates">
                     {this.renderCandidates()}
                 </div>
             </div>

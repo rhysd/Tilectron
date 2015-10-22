@@ -95,11 +95,11 @@ function notifyStartLoading(state, id, url) {
 
 function notifyEndLoading(state, id) {
     const next_state = {...state};
-    next_state.pages = state.pages.update(id, p => {
-        p.updateStatus();
-        History.add(p.url, p.title);
-        return p;
-    });
+    const p = state.pages.get(id);
+    p.updateStatus();
+    p.loading = false;
+    History.add(p.url, p.title);
+    next_state.pages = state.pages.set(id, p.clone());
     return next_state;
 }
 

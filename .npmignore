@@ -4,3 +4,6 @@
 /typings
 /browser
 /renderer
+/.git
+/.travis.yml
+/.gitignore

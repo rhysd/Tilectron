@@ -1,4 +1,4 @@
-<img alt="logo" height="42px" src="https://raw.githubusercontent.com/rhysd/Tilectron/master/resources/tilectron.png"/> Tilectron: Tiling Window Browser
+![Tilectron: Tiling Window Browser](resources/doc-title.png)
 ================================
 [![Build Status](https://travis-ci.org/rhysd/Tilectron.svg)](https://travis-ci.org/rhysd/Tilectron)
 

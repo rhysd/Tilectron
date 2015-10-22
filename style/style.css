@@ -6,6 +6,7 @@ html,body {
 body {
   margin: 0px;
   font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
+  overflow: hidden;
 }
 
 .app {
@@ -77,6 +78,7 @@ body {
   width: 100%;
   height: 100%; /*Consider height of address bar*/
   flex: auto;
+  outline: none;
 }
 .addr-bar-wrapper {
   /* -webkit-animation-duration: 0.2s; */
@@ -161,7 +163,7 @@ body {
   padding: 0px 8px;
 }
 .start-page .favorites {
-  height: calc(100vh / 2);
+  height: calc((100% - 1.5em - 16px) / 2);
   text-align: center;
 }
 .start-page .favorites > img {
@@ -176,14 +178,18 @@ body {
   margin: 8px 0px;
 }
 .start-page .history-candidates {
+  height: calc((100% - 1.5em - 16px) / 2);
   box-sizing: border-box;
   margin: 8px;
-  border: solid 1px #bbbbbb;
+  border-top: solid 1px #bbbbbb;
+  overflow: hidden;
 }
 .start-page .history-item {
   box-sizing: border-box;
   height: 2.5em;
   border-bottom: solid 1px #bbbbbb;
+  border-left: solid 1px #bbbbbb;
+  border-right: solid 1px #bbbbbb;
   background-color: white;
   display: flex;
   align-items: center;

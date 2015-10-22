@@ -2,6 +2,11 @@ import {notifyStartLoading, notifyEndLoading} from './actions';
 
 export default class PageState {
     constructor(start_url, tile_id, dispatch) {
+        if (!start_url && !tile_id && !dispatch) {
+            // For cloning
+            return;
+        }
+
         this.tile_id = tile_id;
         this.webview = document.createElement('webview');
         this.webview.className = 'inner-view';
@@ -17,6 +22,14 @@ export default class PageState {
         this.is_crashed = false;
 
         this.registerCallbacks(dispatch);
+    }
+
+    clone() {
+        const cloned = new PageState();
+        for (const prop in this) {
+            cloned[prop] = this[prop];
+        }
+        return cloned;
     }
 
     getURL(input) {
@@ -54,7 +67,6 @@ export default class PageState {
         this.can_go_back = this.webview.canGoBack();
         this.can_go_forward = this.webview.canGoForward();
         this.is_crashed = this.webview.isCrashed();
-        this.loading = this.webview.isLoading();
         this.url = this.webview.getUrl();
         this.title = this.webview.getTitle();
         return this;
