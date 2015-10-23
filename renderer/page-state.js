@@ -1,4 +1,4 @@
-import {notifyStartLoading, notifyEndLoading} from './actions';
+import {notifyStartLoading, notifyEndLoading, closeTile} from './actions';
 
 export default class PageState {
     constructor(start_url, tile_id, dispatch) {
@@ -37,7 +37,7 @@ export default class PageState {
         if (!input.startsWith('?') && (input.startsWith('http://') || input.startsWith('https://'))) {
             return input;
         } else {
-            return 'https://www.google.co.jp/search?q=' + input; // TODO: Escape
+            return 'https://www.google.com/search?q=' + encodeURIComponent(input);
         }
     }
 
@@ -62,6 +62,11 @@ export default class PageState {
                 console.log(`Failed loading: ${event.validatedUrl}: ${event.errorDescription}`);
             }
         });
+
+        this.webvew.addEventListener(
+            'close',
+            () => dispatch(closeTile(this.tile_id))
+        );
     }
 
     updateStatus() {
