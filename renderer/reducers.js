@@ -1,7 +1,8 @@
 import Immutable from 'immutable';
-import {SPLIT_VERTICAL, SPLIT_HORIZONTAL, OPEN_PAGE, CHANGE_FOCUS, CLOSE_TILE, FOCUS_LEFT, FOCUS_RIGHT, FOCUS_UP, FOCUS_DOWN, SWITCH_SPLIT, SWAP_TILES, NOTIFY_START_LOADING, NOTIFY_END_LOADING, UPDATE_SEARCH} from './actions';
+import * as A from './actions';
 import TileTree, {SplitType} from './tile-tree';
 import History from './history';
+import PageState from './page-state';
 
 // When splitting the reducer logically, combine it by combineReducers()
 // import {combineReducers} from 'redux'
@@ -16,12 +17,31 @@ let init = {
     searches: Immutable.Map()
 };
 
-function splitTile(state, type) {
-    let next_state = {...state};
-    let created_tile_id = next_state.tree.split(state.current_id, type);
+function splitTile(state, id, type) {
+    const next_state = {...state};
+    const created_tile_id = next_state.tree.split(id, type);
     if (created_tile_id !== null) {
         next_state.current_id = created_tile_id;
     }
+    return next_state;
+}
+
+function splitTileWithCurrentPage(state, id, type) {
+    const created_id = state.tree.split(id, type);
+    if (created_id === null) {
+        return state;
+    }
+
+    const next_state = {...state};
+    next_state.current_id = created_id;
+
+    const p = state.pages.get(id);
+    if (!p) {
+        return next_state;
+    }
+
+    const new_page = new PageState(p.url, created_id, p.dispatch);
+    next_state.pages = state.pages.set(created_id, new_page);
     return next_state;
 }
 
@@ -113,33 +133,37 @@ export default function tilectron(state = init, action) {
     console.log(action.type);
     const id = action.tile_id !== undefined ? action.tile_id : state.current_id;
     switch (action.type) {
-    case CHANGE_FOCUS:
+    case A.CHANGE_FOCUS:
         return changeFocus(state, id);
-    case NOTIFY_START_LOADING:
+    case A.NOTIFY_START_LOADING:
         return notifyStartLoading(state, id, action.url);
-    case NOTIFY_END_LOADING:
+    case A.NOTIFY_END_LOADING:
         return notifyEndLoading(state, id);
-    case UPDATE_SEARCH:
+    case A.UPDATE_SEARCH:
         return updateSearch(state, action.result, id);
-    case SPLIT_VERTICAL:
-        return splitTile(state, SplitType.Vertical);
-    case SPLIT_HORIZONTAL:
-        return splitTile(state, SplitType.Horizontal);
-    case OPEN_PAGE:
+    case A.SPLIT_VERTICAL:
+        return splitTile(state, id, SplitType.Vertical);
+    case A.SPLIT_HORIZONTAL:
+        return splitTile(state, id, SplitType.Horizontal);
+    case A.SPLIT_VERTICAL_WITH_CURRENT_PAGE:
+        return splitTileWithCurrentPage(state, id, SplitType.Vertical);
+    case A.SPLIT_HORIZONTAL_WITH_CURRENT_PAGE:
+        return splitTileWithCurrentPage(state, id, SplitType.Horizontal);
+    case A.OPEN_PAGE:
         return openPage(state, action.page, action.from_start_page);
-    case CLOSE_TILE:
+    case A.CLOSE_TILE:
         return closeTile(state, id);
-    case FOCUS_LEFT:
+    case A.FOCUS_LEFT:
         return focusNeighbor(state, state.tree.getLeftOf(state.current_id));
-    case FOCUS_RIGHT:
+    case A.FOCUS_RIGHT:
         return focusNeighbor(state, state.tree.getRightOf(state.current_id));
-    case FOCUS_UP:
+    case A.FOCUS_UP:
         return focusNeighbor(state, state.tree.getUpOf(state.current_id));
-    case FOCUS_DOWN:
+    case A.FOCUS_DOWN:
         return focusNeighbor(state, state.tree.getDownOf(state.current_id));
-    case SWITCH_SPLIT:
+    case A.SWITCH_SPLIT:
         return switchSplit(state, id);
-    case SWAP_TILES:
+    case A.SWAP_TILES:
         return swapTiles(state, id);
     default:
         console.log('Unknown action: ' + action.type);

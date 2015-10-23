@@ -1,10 +1,30 @@
 import Mousetrap from 'mousetrap';
-import {splitVertical, splitHorizontal, closeTile, focusLeft, focusRight, focusUp, focusDown, switchSplit, swapTiles} from './actions';
-import {scrollDownPage, scrollUpPage, scrollRightPage, scrollLeftPage, toggleDevTools} from './pure-actions';
+import {
+    splitVertical,
+    splitHorizontal,
+    closeTile,
+    focusLeft,
+    focusRight,
+    focusUp,
+    focusDown,
+    switchSplit,
+    swapTiles,
+    splitVerticalWithCurrentPage,
+    splitHorizontalWithCurrentPage
+} from './actions';
+import {
+    scrollDownPage,
+    scrollUpPage,
+    scrollRightPage,
+    scrollLeftPage,
+    toggleDevTools
+} from './pure-actions';
 
 export const ActionMap = {
     splitVertical,
     splitHorizontal,
+    splitVerticalWithCurrentPage,
+    splitHorizontalWithCurrentPage,
     closeTile,
     focusLeft,
     focusRight,
@@ -66,6 +86,8 @@ const KeyHandlerSinglton = new KeyHandler({
     'l': 'scrollRightPage',
     's v': 'splitVertical',
     's h': 'splitHorizontal',
+    's V': 'splitVerticalWithCurrentPage',
+    's H': 'splitHorizontalWithCurrentPage',
     'x': 'closeTile',
     'ctrl+h': 'focusLeft',
     'ctrl+l': 'focusRight',

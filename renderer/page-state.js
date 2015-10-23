@@ -20,6 +20,7 @@ export default class PageState {
         this.can_go_back = false;
         this.can_go_forward = false;
         this.is_crashed = false;
+        this.dispatch = dispatch;
 
         this.registerCallbacks(dispatch);
     }

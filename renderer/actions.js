@@ -12,13 +12,21 @@ export const SWAP_TILES = Symbol('action-swap-tiles');
 export const NOTIFY_START_LOADING = Symbol('action-notify-start-loading');
 export const NOTIFY_END_LOADING = Symbol('action-notify-end-loading');
 export const UPDATE_SEARCH = Symbol('action-update-search');
+export const SPLIT_VERTICAL_WITH_CURRENT_PAGE = Symbol('action-split-vertical-with-current-page');
+export const SPLIT_HORIZONTAL_WITH_CURRENT_PAGE = Symbol('action-split-horizontal-with-current-page');
 
-export function splitVertical() {
-    return {type: SPLIT_VERTICAL};
+export function splitVertical(tile_id) {
+    return {
+        type: SPLIT_VERTICAL,
+        tile_id
+    };
 }
 
-export function splitHorizontal() {
-    return {type: SPLIT_HORIZONTAL};
+export function splitHorizontal(tile_id) {
+    return {
+        type: SPLIT_HORIZONTAL,
+        tile_id
+    };
 }
 
 export function openPage(page, from_start_page = false) {
@@ -92,3 +100,16 @@ export function updateSearch(tile_id, result) {
     };
 }
 
+
+export function splitVerticalWithCurrentPage(tile_id) {
+    return {
+        type: SPLIT_VERTICAL_WITH_CURRENT_PAGE,
+        tile_id
+    };
+}
+export function splitHorizontalWithCurrentPage(tile_id) {
+    return {
+        type: SPLIT_HORIZONTAL_WITH_CURRENT_PAGE,
+        tile_id
+    };
+}
