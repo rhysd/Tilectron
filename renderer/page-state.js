@@ -63,7 +63,7 @@ export default class PageState {
             }
         });
 
-        this.webvew.addEventListener(
+        this.webview.addEventListener(
             'close',
             () => dispatch(closeTile(this.tile_id))
         );
