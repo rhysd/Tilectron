@@ -2,6 +2,10 @@ import React from 'react';
 import OmniInput from './omni-input.jsx';
 import {splitVertical, splitHorizontal, closeTile} from '../actions';
 
+const bar_style = {
+    paddingLeft: global.process.platform === 'darwin' ? '80px' : undefined
+};
+
 function getButtonClass(enabled) {
     if (enabled) {
         return 'btn btn-default';
@@ -28,11 +32,10 @@ function renderRefreshButton(page) {
 
 export default function AddressBar(props) {
     const {dispatch, page, tileId} = props;
-
     // TODO:
     // When platform is not OS X, remove the padding
     return (
-        <header className="toolbar toolbar-header" style={{paddingLeft: '80px'}}>
+        <header className="toolbar toolbar-header" style={bar_style}>
             <div className="toolbar-actions">
                 <div className="btn-group">
                     <button className="btn btn-default" onClick={() => dispatch(splitVertical())}>
