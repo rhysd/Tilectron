@@ -3,14 +3,18 @@ node_js:
     - "stable"
 sudo: false
 install:
-    - npm install -g tslint tsd eslint eslint-plugin-react
+    - npm install -g tslint tsd eslint eslint-plugin-react electron-prebuilt eslint-plugin-mocha
     - npm install
     - tsd install
     - tslint --version
     - eslint --version
+before_script:
+    - mkdir -p ./tests/renderer/out
+    - ./node_modules/.bin/browserify -t babelify -d -o ./tests/renderer/out/tile-tree.js ./tests/renderer/tile-tree.js
 script:
     - tsc -p browser/
     - mkdir -p ./build/renderer
     - ./node_modules/.bin/browserify -t babelify -d -o ./build/renderer/index.js ./renderer/index.jsx
     - tslint $(git ls-files | grep '.ts$')
     - eslint $(git ls-files | grep -E '\.jsx?$')
+    - ./node_modules/.bin/electron-mocha --renderer ./tests/renderer/out

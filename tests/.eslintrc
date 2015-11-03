@@ -16,8 +16,10 @@
             2,
             "always"
         ],
+        "mocha/no-exclusive-tests": 2
     },
     "env": {
+        "mocha": true,
         "es6": true,
         "node": true,
         "browser": true

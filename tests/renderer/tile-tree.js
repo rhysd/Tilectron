@@ -26,12 +26,12 @@ describe('TileTree', () => {
             const t = new TileTree();
             t.split(0, SplitType.Horizontal);
             const c = t.clone();
-            assert.equal(t.root.id, undefined);
-            assert.instanceOf(t.root, ContainerKnot);
-            assert.instanceOf(t.root.left, TileLeaf);
-            assert.equal(t.root.left.id, 0);
-            assert.instanceOf(t.root.right, TileLeaf);
-            assert.equal(t.root.right.id, 1);
+            assert.equal(c.root.id, undefined);
+            assert.instanceOf(c.root, ContainerKnot);
+            assert.instanceOf(c.root.left, TileLeaf);
+            assert.equal(c.root.left.id, 0);
+            assert.instanceOf(c.root.right, TileLeaf);
+            assert.equal(c.root.right.id, 1);
         });
     });
 });
