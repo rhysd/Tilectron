@@ -89,6 +89,7 @@ body {
 .omni-input {
   box-sizing: border-box;
   flex: auto;
+  -webkit-app-region: no-drag;
 }
 
 .web-page {
