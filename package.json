@@ -39,7 +39,11 @@
   "devDependencies": {
     "babelify": "^6.3.0",
     "browserify": "^11.2.0",
+    "chai": "^3.4.0",
+    "electron-mocha": "^0.5.1",
     "electron-prebuilt": "^0.33.7",
+    "eslint": "^1.8.0",
+    "eslint-plugin-mocha": "^1.0.0",
     "typescript": "^1.6.2"
   }
 }

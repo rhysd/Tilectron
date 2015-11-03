@@ -78,3 +78,9 @@ task :lint do
     sh "eslint #{f}"
   end
 end
+
+task :test do
+  mkdir_p "#{ROOT}/tests/renderer/out"
+  sh "#{BIN}/browserify -t babelify -o #{ROOT}/tests/renderer/out/tile-tree.js #{ROOT}/tests/renderer/tile-tree.js"
+  sh "#{BIN}/electron-mocha --renderer #{ROOT}/tests/renderer/out/tile-tree.js"
+end

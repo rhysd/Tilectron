@@ -4,3 +4,4 @@
 /app.asar
 /typings
 /build
+/tests/renderer/out
