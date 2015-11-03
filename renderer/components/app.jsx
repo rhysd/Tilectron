@@ -33,7 +33,7 @@ class App extends Component {
     render() {
         const {current_id, dispatch, pages} = this.props;
         return (
-            <div className="root">
+            <div className="window">
                 <AddressBar page={pages.get(current_id)} dispatch={dispatch} tileId={current_id} />
                 <div className="pages">
                     {this.renderTree()}

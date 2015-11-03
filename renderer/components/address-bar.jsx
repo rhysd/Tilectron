@@ -2,42 +2,64 @@ import React from 'react';
 import OmniInput from './omni-input.jsx';
 import {splitVertical, splitHorizontal, closeTile} from '../actions';
 
-function disabledClass(attr, enabled) {
+function getButtonClass(enabled) {
     if (enabled) {
-        return attr;
+        return 'btn btn-default';
     } else {
-        return attr + ' disabled';
+        return 'btn btn-default disabled';
     }
 }
 
 function renderRefreshButton(page) {
     if (page && page.loading) {
-        return <i className={disabledClass('fa fa-times icon-button', !!page)} onClick={() => page && page.stop()}/>;
+        return (
+            <button className={getButtonClass(!!page)} onClick={() => page && page.stop()}>
+                <span className="icon icon-cancel"/>
+            </button>
+        );
     } else {
-        return <i className={disabledClass('fa fa-refresh icon-button', !!page)} onClick={() => page && page.reload()}/>;
+        return (
+            <button className={getButtonClass(!!page)} onClick={() => page && page.reload()}>
+                <span className="icon icon-arrows-ccw"/>
+            </button>
+        );
     }
 }
 
 export default function AddressBar(props) {
     const {dispatch, page, tileId} = props;
+
+    // TODO:
+    // When platform is not OS X, remove the padding
     return (
-        <div className="address-bar" style={{paddingLeft: '80px'}}>
-            <div className="split leftside-button" onClick={() => dispatch(splitVertical())}>
-                <i className="fa fa-arrows-h"/>
+        <header className="toolbar toolbar-header" style={{paddingLeft: '80px'}}>
+            <div className="toolbar-actions">
+                <div className="btn-group">
+                    <button className="btn btn-default" onClick={() => dispatch(splitVertical())}>
+                        <span className="icon icon-arrow-combo vertical"/>
+                    </button>
+                    <button className="btn btn-default" onClick={() => dispatch(splitHorizontal())}>
+                        <span className="icon icon-arrow-combo"/>
+                    </button>
+                </div>
+                <div className="btn-group">
+                    <button className={getButtonClass(page && page.can_go_back)} onClick={() => page && page.goBack()}>
+                        <span className="icon icon-left-bold"/>
+                    </button>
+                    <button className={getButtonClass(page && page.can_go_forward)} onClick={() => page && page.goForward()}>
+                        <span className="icon icon-right-bold"/>
+                    </button>
+                </div>
+                {renderRefreshButton(page)}
+                <OmniInput dispatch={dispatch} tileId={tileId} page={page}/>
+                <div className="flatbutton" onClick={() => dispatch(closeTile(tileId))}>
+                    <span className="icon icon-cancel-circled"/>
+                </div>
+                <div className="flatbutton">
+                    <span className="icon icon-menu"/>
+                </div>
             </div>
-            <div className="split rightside-button" onClick={() => dispatch(splitHorizontal())}>
-                <i className="fa fa-arrows-v"/>
-            </div>
-            <div className={disabledClass('leftside-button', page && page.can_go_back)} onClick={() => page && page.goBack()}>
-                <i className="fa fa-arrow-left"/>
-            </div>
-            <div className={disabledClass('rightside-button', page && page.can_go_forward)} onClick={() => page && page.goForward()}>
-                <i className="fa fa-arrow-right"/>
-            </div>
-            {renderRefreshButton(page)}
-            <OmniInput dispatch={dispatch} tileId={tileId} page={page}/>
-            <i className="fa fa-times icon-button" onClick={() => dispatch(closeTile(tileId))}/>
-        </div>
+        </header>
     );
 }
 
