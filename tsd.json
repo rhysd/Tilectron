@@ -6,13 +6,13 @@
   "bundle": "typings/tsd.d.ts",
   "installed": {
     "node/node.d.ts": {
-      "commit": "3fc1377ce29dd9670975cb68615edf1b819fc4a5"
+      "commit": "0dd29bf8253536ae24e61c109524e924ea510046"
     },
     "github-electron/github-electron.d.ts": {
-      "commit": "3fc1377ce29dd9670975cb68615edf1b819fc4a5"
+      "commit": "0dd29bf8253536ae24e61c109524e924ea510046"
     },
     "github-electron/github-electron-main.d.ts": {
-      "commit": "3fc1377ce29dd9670975cb68615edf1b819fc4a5"
+      "commit": "0dd29bf8253536ae24e61c109524e924ea510046"
     }
   }
 }
