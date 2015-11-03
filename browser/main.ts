@@ -10,6 +10,7 @@ app.on('ready', () => {
     let win = new BrowserWindow({
         width: display_size.width,
         height: display_size.height,
+        'title-bar-style': 'hidden-inset',
     });
 
     win.on('closed', () => {

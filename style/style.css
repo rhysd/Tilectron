@@ -24,28 +24,13 @@ body {
   -webkit-user-select: none;
 }
 
-.debug-buttons {
-  background-color: #dddddd;
-  display: flex;
-  flex-direction: row;
-  padding: 4px;
-  width: 100%;
-  height: 30px;
-  box-sizing: border-box;
-  align-items: center;
-  -webkit-user-select: none;
-}
-.debug-buttons button {
-  float: left;
-}
-.debug-buttons .menu-button {
-  margin: 0em 0.2em;
-  cursor: pointer;
-}
-
 .root {
   width: 100%;
   height: 100%;
+}
+.root .pages {
+  width: 100%;
+  height: calc(100% - 30px);
 }
 
 .knot {
@@ -157,6 +142,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
   box-sizing: border-box;
   width: 100%;
   background-color: #eeeeee;

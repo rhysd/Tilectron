@@ -26,7 +26,6 @@
   },
   "homepage": "https://github.com/rhysd/Tilectron#readme",
   "dependencies": {
-    "animate.css": "^3.4.0",
     "dexie": "^1.2.0",
     "electron-cookies": "^1.1.0",
     "font-awesome": "^4.4.0",

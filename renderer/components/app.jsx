@@ -1,9 +1,10 @@
 import React,{PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
 import Immutable from 'immutable';
-import {TileLeaf, ContainerKnot} from '../tile-tree';
 import Tile from './tile.jsx';
 import Container from './container.jsx';
+import AddressBar from './address-bar.jsx';
+import {TileLeaf, ContainerKnot} from '../tile-tree';
 import KeyHandler from '../key-handler';
 
 class App extends Component {
@@ -30,9 +31,13 @@ class App extends Component {
     }
 
     render() {
+        const {current_id, dispatch, pages} = this.props;
         return (
             <div className="root">
-                {this.renderTree()}
+                <AddressBar page={pages.get(current_id)} dispatch={dispatch} tileId={current_id} />
+                <div className="pages">
+                    {this.renderTree()}
+                </div>
             </div>
         );
     }

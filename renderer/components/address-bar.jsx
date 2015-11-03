@@ -21,7 +21,7 @@ function renderRefreshButton(page) {
 export default function AddressBar(props) {
     const {dispatch, page, tileId} = props;
     return (
-        <div className="address-bar">
+        <div className="address-bar" style={{paddingLeft: '80px'}}>
             <div className="split leftside-button" onClick={() => dispatch(splitVertical())}>
                 <i className="fa fa-arrows-h"/>
             </div>

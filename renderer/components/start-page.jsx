@@ -68,13 +68,12 @@ export default class StartPage extends Component {
     }
 
     render() {
-        const {focused, search, dispatch, tileId} = this.props;
-        const height = focused ? 'calc(100% - 30px)' : '100%';
+        const {search, dispatch, tileId} = this.props;
         if (!search) {
             History.all().then(cs => dispatch(updateSearch(tileId, cs)));
         }
         return (
-            <div className="start-page" style={{height}}>
+            <div className="start-page">
                 <div className="favorites">
                     <img src="resources/tilectron.svg"/>
                 </div>
@@ -96,7 +95,6 @@ export default class StartPage extends Component {
 
 StartPage.propTypes = {
     dispatch: PropTypes.func,
-    focused: PropTypes.bool,
     search: PropTypes.arrayOf(HistoryEntryType),
     tileId: PropTypes.number
 };
