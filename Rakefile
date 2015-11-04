@@ -74,7 +74,7 @@ task :lint do
   Dir['browser/**/*.ts'].each do |f|
     sh "tslint #{f}"
   end
-  Dir['renderer/**/*.js', 'renderer/**/*.jsx'].each do |f|
+  Dir['renderer/**/*.js', 'renderer/**/*.jsx', 'tests/renderer/*.js'].each do |f|
     sh "eslint #{f}"
   end
 end

@@ -183,13 +183,13 @@ describe('TileTree', () => {
     describe('split()', () => {
         it('splits a tile specified by id', () => {
             t.split(0, SplitType.Horizontal);
-            const k = t.root.left
+            const k = t.root.left;
             assert.instanceOf(k, ContainerKnot);
             assert.strictEqual(k.left.id, 0);
             assert.strictEqual(k.right.id, 3);
 
             t.split(2, SplitType.Vertical);
-            const k2 = t.root.right.right
+            const k2 = t.root.right.right;
             assert.instanceOf(k2, ContainerKnot);
             assert.strictEqual(k2.left.id, 2);
             assert.strictEqual(k2.right.id, 4);
@@ -211,8 +211,10 @@ describe('TileTree', () => {
         it('can remove tile of terminal knot', () => {
             let i = t.remove(2);
             assert.strictEqual(t.root.right.id, 1);
+            assert.strictEqual(i, 2);
             i = t.remove(0);
             assert.strictEqual(t.root.id, 1);
+            assert.strictEqual(i, 0);
         });
 
         it('can remove tile of non-terminal knot', () => {

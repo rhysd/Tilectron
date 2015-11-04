@@ -2,12 +2,12 @@ import {assert} from 'chai';
 import History from '../../renderer/history';
 
 describe('History', () => {
-        afterEach(
-            done =>
-                History.histories.clear()
-                .then(() => done())
-                .catch(err => done(err))
-        );
+    afterEach(
+        done =>
+            History.histories.clear()
+            .then(() => done())
+            .catch(err => done(err))
+    );
 
     describe('constructor', () => {
         it('opens empty DB', done => {
@@ -33,7 +33,7 @@ describe('History', () => {
                 }).catch(err => done(err));
         });
 
-        it('does not make duplicate in DB entries', () => {
+        it('does not make duplicate in DB entries', done => {
             History.add('https://example.com/1', 'Example Foo')
                 .then(() => History.add('https://example.com/1', 'Example Bar'))
                 .then(() => History.add('https://example.com/1', 'Example Yo'))
