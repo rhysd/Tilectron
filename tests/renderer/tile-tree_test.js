@@ -211,16 +211,17 @@ describe('TileTree', () => {
         it('can remove tile of terminal knot', () => {
             let i = t.remove(2);
             assert.strictEqual(t.root.right.id, 1);
-            assert.strictEqual(i, 2);
+            assert.strictEqual(i, 1);
             i = t.remove(0);
             assert.strictEqual(t.root.id, 1);
-            assert.strictEqual(i, 0);
+            assert.strictEqual(i, 1);
         });
 
         it('can remove tile of non-terminal knot', () => {
-            t.remove(0);
+            const i = t.remove(0);
             assert.strictEqual(t.root.left.id, 1);
             assert.strictEqual(t.root.right.id, 2);
+            assert.strictEqual(i, 1);
         });
 
         it('returns null if id is not found', () => {

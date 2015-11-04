@@ -10,13 +10,13 @@ install:
     - eslint --version
 before_script:
     - mkdir -p ./tests/renderer/out
+    - mkdir -p ./build/renderer
     - "export DISPLAY=:99.0"
     - "sh -e /etc/init.d/xvfb start"
+script:
     - ./node_modules/.bin/browserify -t babelify -d -o ./tests/renderer/out/tile-tree_test.js ./tests/renderer/tile-tree_test.js
     - ./node_modules/.bin/browserify -t babelify -d -o ./tests/renderer/out/history_test.js ./tests/renderer/history_test.js
-script:
     - tsc -p browser/
-    - mkdir -p ./build/renderer
     - ./node_modules/.bin/browserify -t babelify -d -o ./build/renderer/index.js ./renderer/index.jsx
     - tslint $(git ls-files | grep '.ts$')
     - eslint $(git ls-files | grep -E '\.jsx?$')

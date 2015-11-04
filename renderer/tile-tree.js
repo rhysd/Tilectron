@@ -124,6 +124,10 @@ export default class TileTree {
         }
 
         const sibling = target_parent.getSiblingOf(target_leaf);
+        const closer_dir = target_parent.left === sibling ?
+                                Direction.Right :
+                                Direction.Left;
+
         if (sibling === null) {
             return null; // Error
         }
@@ -136,7 +140,12 @@ export default class TileTree {
             parent_of_parent.replaceChild(target_parent, sibling);
         }
 
-        return sibling.id;
+        let c = sibling;
+        while (c.id === undefined) {
+            c = c.getChild(closer_dir);
+        }
+
+        return c.id;
     }
 
     getNeighborImpl(target_node, direction, split_type) {
