@@ -10,7 +10,7 @@ install:
     - eslint --version
 before_script:
     - mkdir -p ./tests/renderer/out
-    - ./node_modules/.bin/browserify -t babelify -d -o ./tests/renderer/out/tile-tree.js ./tests/renderer/tile-tree.js
+    - ./node_modules/.bin/browserify -t babelify -d -o ./tests/renderer/out/tile-tree_test.js ./tests/renderer/tile-tree_test.js
 script:
     - tsc -p browser/
     - mkdir -p ./build/renderer
