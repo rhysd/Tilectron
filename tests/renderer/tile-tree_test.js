@@ -6,7 +6,7 @@ describe('TileLeaf', () => {
 
     beforeEach(() => {
         l = new TileLeaf(null, 99);
-    })
+    });
 
     describe('constructor', () => {
         it('generates new leaf', () => {
