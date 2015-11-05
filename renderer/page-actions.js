@@ -9,24 +9,37 @@ function getCurrentWebview() {
     return page.webview;
 }
 
-function scrollCurrentPage(scroll_args) {
+function scrollCurrentPageBy(scroll_args) {
     const webview = getCurrentWebview();
     if (webview !== null) {
         webview.executeJavaScript(`window.scrollBy(${scroll_args})`);
     }
 }
 
+function scrollCurrentPageTo(scroll_args) {
+    const webview = getCurrentWebview();
+    if (webview !== null) {
+        webview.executeJavaScript(`window.scrollTo(${scroll_args})`);
+    }
+}
+
 export function scrollDownPage() {
-    scrollCurrentPage('0, window.innerHeight / 5');
+    scrollCurrentPageBy('0, window.innerHeight / 5');
 }
 export function scrollUpPage() {
-    scrollCurrentPage('0, -window.innerHeight / 5');
+    scrollCurrentPageBy('0, -window.innerHeight / 5');
 }
 export function scrollRightPage() {
-    scrollCurrentPage('window.innerWidth / 5, 0');
+    scrollCurrentPageBy('window.innerWidth / 5, 0');
 }
 export function scrollLeftPage() {
-    scrollCurrentPage('-window.innerWidth / 5, 0');
+    scrollCurrentPageBy('-window.innerWidth / 5, 0');
+}
+export function scrollToTop() {
+    scrollCurrentPageTo('0, 0');
+}
+export function scrollToBottom() {
+    scrollCurrentPageTo('0, document.body.clientHeight');
 }
 
 export function toggleDevTools() {

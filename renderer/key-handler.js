@@ -17,8 +17,10 @@ import {
     scrollUpPage,
     scrollRightPage,
     scrollLeftPage,
+    scrollToTop,
+    scrollToBottom,
     toggleDevTools
-} from './pure-actions';
+} from './page-actions';
 
 export const ActionMap = {
     splitVertical,
@@ -34,12 +36,14 @@ export const ActionMap = {
     swapTiles
 };
 
-export const PureActionMap = {
+export const PageActionMap = {
     toggleDevTools,
     scrollDownPage,
     scrollUpPage,
     scrollRightPage,
-    scrollLeftPage
+    scrollLeftPage,
+    scrollToTop,
+    scrollToBottom
 };
 
 export class KeyHandler {
@@ -61,8 +65,8 @@ export class KeyHandler {
                 continue;
             }
 
-            if (PureActionMap[action_name]) {
-                Mousetrap.bind(key, PureActionMap[action_name]);
+            if (PageActionMap[action_name]) {
+                Mousetrap.bind(key, PageActionMap[action_name]);
                 continue;
             }
 
@@ -84,6 +88,8 @@ const KeyHandlerSinglton = new KeyHandler({
     'j': 'scrollDownPage',
     'k': 'scrollUpPage',
     'l': 'scrollRightPage',
+    'g g': 'scrollToTop',
+    'G': 'scrollToBottom',
     's v': 'splitVertical',
     's h': 'splitHorizontal',
     's V': 'splitVerticalWithCurrentPage',
