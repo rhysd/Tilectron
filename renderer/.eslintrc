@@ -44,7 +44,8 @@
         "react/require-extension": 2,
         "react/self-closing-comp": 2,
         "react/sort-comp": 2,
-        "react/wrap-multilines": 2
+        "react/wrap-multilines": 2,
+        "react/no-multi-comp": 0
     },
     "env": {
         "es6": true,
