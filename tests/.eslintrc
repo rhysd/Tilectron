@@ -16,7 +16,10 @@
             2,
             "always"
         ],
-        "mocha/no-exclusive-tests": 2
+        "jsx-quotes": 2,
+        "mocha/no-exclusive-tests": 2,
+        "react/jsx-uses-react": 2,
+        "react/jsx-uses-vars": 2,
     },
     "env": {
         "mocha": true,
@@ -27,9 +30,11 @@
     "extends": "eslint:recommended",
     "ecmaFeatures": {
         "modules": true,
+        "jsx": true,
         "experimentalObjectRestSpread": true
     },
     "plugins": [
-        "mocha"
+        "mocha",
+        "react"
     ]
 }
