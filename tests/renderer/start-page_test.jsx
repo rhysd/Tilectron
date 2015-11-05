@@ -1,5 +1,5 @@
 import React from 'react';
-import {createRenderer, Simulate} from 'react-addons-test-utils';
+import {createRenderer} from 'react-addons-test-utils';
 import {assert} from 'chai';
 import StartPage from '../../renderer/components/start-page.jsx';
 import History from '../../renderer/history';
@@ -42,7 +42,6 @@ describe('<StartPage> (shallow renderer)', () => {
         const url_node = item_node.props.children[1];
         assert.strictEqual(url_node.props.className, 'history-url');
         assert.strictEqual(url_node.props.href, 'https://github.com');
-        Simulate.click(url_node);
     });
 
     it('renderers all histories on no search input', done => {

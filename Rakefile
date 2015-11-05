@@ -81,7 +81,7 @@ end
 
 task :test do
   mkdir_p "#{ROOT}/tests/renderer/out"
-  Dir["#{ROOT}/tests/renderer/*.js"].each do |p|
+  Dir["#{ROOT}/tests/renderer/*.js", "#{ROOT}/tests/renderer/*.jsx"].each do |p|
     js = File.basename p
     puts "TEST: #{js}"
     sh "#{BIN}/browserify -t babelify -o #{ROOT}/tests/renderer/out/#{js} #{p}"

@@ -17,6 +17,7 @@ script:
     - ./node_modules/.bin/browserify -t babelify -d -o ./tests/renderer/out/tile-tree_test.js ./tests/renderer/tile-tree_test.js
     - ./node_modules/.bin/browserify -t babelify -d -o ./tests/renderer/out/history_test.js ./tests/renderer/history_test.js
     - ./node_modules/.bin/browserify -t babelify -d -o ./tests/renderer/out/start-page_test.js ./tests/renderer/start-page_test.jsx
+    - ./node_modules/.bin/browserify -t babelify -d -o ./tests/renderer/out/container_test.js ./tests/renderer/container_test.jsx
     - tsc -p browser/
     - ./node_modules/.bin/browserify -t babelify -d -o ./build/renderer/index.js ./renderer/index.jsx
     - tslint $(git ls-files | grep '.ts$')
