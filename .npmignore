@@ -7,3 +7,5 @@
 /.git
 /.travis.yml
 /.gitignore
+/tests
+/bower.json
