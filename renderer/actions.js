@@ -14,6 +14,13 @@ export const NOTIFY_END_LOADING = Symbol('action-notify-end-loading');
 export const UPDATE_SEARCH = Symbol('action-update-search');
 export const SPLIT_VERTICAL_WITH_CURRENT_PAGE = Symbol('action-split-vertical-with-current-page');
 export const SPLIT_HORIZONTAL_WITH_CURRENT_PAGE = Symbol('action-split-horizontal-with-current-page');
+export const MOVE_CURSOR_LEFT = Symbol('action-move-cursor-left');
+export const MOVE_CURSOR_RIGHT = Symbol('action-move-cursor-right');
+export const MOVE_CURSOR_UP = Symbol('action-move-cursor-up');
+export const MOVE_CURSOR_DOWN = Symbol('action-move-cursor-down');
+export const MOVE_CURSOR_UP_HALF_PAGE = Symbol('action-move-cursor-up-half-page');
+export const MOVE_CURSOR_DOWN_HALF_PAGE = Symbol('action-move-cursor-down-half-page');
+export const CLICK_AT_CURSOR = Symbol('action-click-at-cursor');
 
 export function splitVertical(tile_id) {
     return {
@@ -112,4 +119,27 @@ export function splitHorizontalWithCurrentPage(tile_id) {
         type: SPLIT_HORIZONTAL_WITH_CURRENT_PAGE,
         tile_id
     };
+}
+
+export function moveCursorLeft() {
+    return { type: MOVE_CURSOR_LEFT };
+}
+export function moveCursorRight() {
+    return { type: MOVE_CURSOR_RIGHT };
+}
+export function moveCursorUp() {
+    return { type: MOVE_CURSOR_UP };
+}
+export function moveCursorDown() {
+    return { type: MOVE_CURSOR_DOWN };
+}
+export function moveCursorDownHalfPage() {
+    return { type: MOVE_CURSOR_DOWN_HALF_PAGE };
+}
+export function moveCursorUpHalfPage() {
+    return { type: MOVE_CURSOR_UP_HALF_PAGE };
+}
+
+export function clickAtCursor() {
+    return { type: CLICK_AT_CURSOR };
 }

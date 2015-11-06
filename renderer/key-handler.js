@@ -10,7 +10,13 @@ import {
     switchSplit,
     swapTiles,
     splitVerticalWithCurrentPage,
-    splitHorizontalWithCurrentPage
+    splitHorizontalWithCurrentPage,
+    moveCursorLeft,
+    moveCursorRight,
+    moveCursorUp,
+    moveCursorDown,
+    moveCursorUpHalfPage,
+    moveCursorDownHalfPage
 } from './actions';
 import {
     scrollDownPage,
@@ -33,7 +39,13 @@ export const ActionMap = {
     focusUp,
     focusDown,
     switchSplit,
-    swapTiles
+    swapTiles,
+    moveCursorLeft,
+    moveCursorRight,
+    moveCursorUp,
+    moveCursorDown,
+    moveCursorUpHalfPage,
+    moveCursorDownHalfPage
 };
 
 export const PageActionMap = {
@@ -101,7 +113,14 @@ const KeyHandlerSinglton = new KeyHandler({
     'ctrl+k': 'focusUp',
     'ctrl+s': 'switchSplit',
     's s': 'swapTiles',
+    'H': 'moveCursorLeft',
+    'J': 'moveCursorDown',
+    'K': 'moveCursorUp',
+    'L': 'moveCursorRight',
+    'ctrl+d': 'moveCursorDownHalfPage',
+    'ctrl+u': 'moveCursorUpHalfPage',
     'mod+shift+i': 'toggleDevTools'
 });
 
 export default KeyHandlerSinglton;
+

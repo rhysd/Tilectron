@@ -13,6 +13,7 @@ import PageState from './page-state';
 let init = {
     tree: new TileTree(),
     current_id: 0,
+    cursor: Immutable.Map({x: 0, y: 0}),
     pages: Immutable.Map(),
     searches: Immutable.Map()
 };
@@ -129,6 +130,52 @@ function updateSearch(state, new_result, id) {
     return next_state;
 }
 
+function moveCursor(state, delta_x, delta_y) {
+    const c = state.cursor;
+    const width = document.body.clientWidth;
+    const height = document.body.clientHeight;
+    let x = c.get('x') + delta_x;
+    let y = c.get('y') + delta_y;
+
+    if (x < 0) {
+        x = 0;
+    } else if (width < x) {
+        x = width;
+    }
+
+    if (y < 0) {
+        y = 0;
+    } else if (height < y) {
+        y = height;
+    }
+
+    // TODO:
+    // Scroll page to continue to show the cursor
+    const next_state = {...state};
+    next_state.cursor = c.set('x', x).set('y', y);
+    return next_state;
+}
+
+function click(state, x, y) {
+    const w = state.pages[state.current_id].webview;
+    if (!w) {
+        return state;
+    }
+
+    w.sendInputEvent({
+        type: 'mouseDown',
+        button: 'left',
+        x, y
+    });
+    w.sendInputEvent({
+        type: 'mouseUp',
+        button: 'left',
+        x, y
+    });
+
+    return state;
+}
+
 export default function tilectron(state = init, action) {
     console.log(action.type);
     const id = action.tile_id !== undefined ? action.tile_id : state.current_id;
@@ -165,6 +212,20 @@ export default function tilectron(state = init, action) {
         return switchSplit(state, id);
     case A.SWAP_TILES:
         return swapTiles(state, id);
+    case A.MOVE_CURSOR_LEFT:
+        return moveCursor(state, -5, 0);
+    case A.MOVE_CURSOR_RIGHT:
+        return moveCursor(state, 5, 0);
+    case A.MOVE_CURSOR_UP:
+        return moveCursor(state, 0, -5);
+    case A.MOVE_CURSOR_DOWN:
+        return moveCursor(state, 0, 5);
+    case A.MOVE_CURSOR_UP_HALF_PAGE:
+        return moveCursor(state, 0, -(document.body.clientHeight - 35) / 2);
+    case A.MOVE_CURSOR_DOWN_HALF_PAGE:
+        return moveCursor(state, 0, (document.body.clientHeight - 35) / 2);
+    case A.CLICK_AT_CURSOR:
+        return click(state, state.cursor.get('x'), state.cursor.get('y'));
     default:
         console.log('Unknown action: ' + action.type);
         return state;

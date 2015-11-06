@@ -156,3 +156,10 @@ body {
   color: #999999;
   flex: none;
 }
+
+.cursor {
+  position: absolute;
+  width: 0.5rem;
+  height: 1rem;
+  background-color: red;
+}

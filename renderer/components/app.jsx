@@ -30,6 +30,16 @@ class App extends Component {
         }
     }
 
+    renderCursor() {
+        const x = this.props.cursor.get('x');
+        const y = this.props.cursor.get('y') + 35; // 35 means header height
+        const cursor_style = {
+            top: y,
+            left: x
+        };
+        return <div className="cursor" style={cursor_style}/>;
+    }
+
     render() {
         const {current_id, dispatch, pages} = this.props;
         return (
@@ -37,6 +47,7 @@ class App extends Component {
                 <AddressBar page={pages.get(current_id)} dispatch={dispatch} tileId={current_id} />
                 <div className="pages">
                     {this.renderTree()}
+                    {this.renderCursor()}
                 </div>
             </div>
         );
@@ -45,6 +56,7 @@ class App extends Component {
 
 App.propTypes = {
     current_id: PropTypes.number,
+    cursor: PropTypes.instanceOf(Immutable.Map),
     dispatch: PropTypes.func,
     pages: PropTypes.instanceOf(Immutable.Map),
     root: PropTypes.oneOfType([
@@ -55,10 +67,11 @@ App.propTypes = {
 };
 
 function select(state) {
-    const {current_id, dispatch, tree, pages, searches} = state;
+    const {current_id, cursor, dispatch, tree, pages, searches} = state;
     return {
         root: tree.root,
         current_id,
+        cursor,
         dispatch,
         pages,
         searches
