@@ -19,9 +19,7 @@ export default class WebPage extends Component {
 
     render() {
         return (
-            <div className="web-page">
-                <div ref="body"/>
-            </div>
+            <div className="web-page" ref="body"/>
         );
     }
 }

@@ -90,17 +90,17 @@ const KeyHandlerSinglton = new KeyHandler({
     'l': 'scrollRightPage',
     'g g': 'scrollToTop',
     'G': 'scrollToBottom',
-    's v': 'splitVertical',
-    's h': 'splitHorizontal',
-    's V': 'splitVerticalWithCurrentPage',
-    's H': 'splitHorizontalWithCurrentPage',
+    'ctrl+w v': 'splitVertical',
+    'ctrl+w h': 'splitHorizontal',
+    'ctrl+w ctrl+v': 'splitVerticalWithCurrentPage',
+    'ctrl+w ctrl+h': 'splitHorizontalWithCurrentPage',
     'x': 'closeTile',
     'ctrl+h': 'focusLeft',
     'ctrl+l': 'focusRight',
     'ctrl+j': 'focusDown',
     'ctrl+k': 'focusUp',
     'ctrl+s': 'switchSplit',
-    's s': 'swapTiles',
+    'ctrl+w s': 'swapTiles',
     'mod+shift+i': 'toggleDevTools'
 });
 
