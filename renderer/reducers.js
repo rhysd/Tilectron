@@ -113,13 +113,12 @@ function notifyStartLoading(state, id, url) {
     return next_state;
 }
 
-function notifyEndLoading(state, id) {
+function notifyEndLoading(state, id, new_page) {
     const next_state = {...state};
-    const p = state.pages.get(id);
-    p.updateStatus();
-    p.loading = false;
-    History.add(p.url, p.title);
-    next_state.pages = state.pages.set(id, p.clone());
+    new_page.updateStatus();
+    new_page.loading = false;
+    History.add(new_page.url, new_page.title);
+    next_state.pages = state.pages.set(id, new_page);
     return next_state;
 }
 
@@ -138,7 +137,7 @@ export default function tilectron(state = init, action) {
     case A.NOTIFY_START_LOADING:
         return notifyStartLoading(state, id, action.url);
     case A.NOTIFY_END_LOADING:
-        return notifyEndLoading(state, id);
+        return notifyEndLoading(state, id, action.new_page);
     case A.UPDATE_SEARCH:
         return updateSearch(state, action.result, id);
     case A.SPLIT_VERTICAL:

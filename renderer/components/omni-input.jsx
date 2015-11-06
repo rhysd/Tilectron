@@ -35,7 +35,7 @@ export default class OmniInput extends Component {
         if (page) {
             page.open(input);
         } else {
-            dispatch(openPage(new PageState(input, tileId, dispatch)));
+            dispatch(openPage(new PageState(input, tileId)));
         }
         this.refs.body.blur();
     }

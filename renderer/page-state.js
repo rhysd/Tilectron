@@ -1,28 +1,20 @@
-import {notifyStartLoading, notifyEndLoading, closeTile} from './actions';
-
 export default class PageState {
-    constructor(start_url, tile_id, dispatch) {
-        if (!start_url && !tile_id && !dispatch) {
+    constructor(start_url, tile_id, webview) {
+        if (!start_url && !tile_id && !webview) {
             // For cloning
             return;
         }
 
         this.tile_id = tile_id;
-        this.webview = document.createElement('webview');
-        this.webview.className = 'inner-view';
-
+        this.webview = webview;
         // TODO: Inject JavaScript here using 'preload'
 
         this.url = this.getURL(start_url);
-        this.webview.src = this.url;
         this.title = '';
         this.loading = true;
         this.can_go_back = false;
         this.can_go_forward = false;
         this.is_crashed = false;
-        this.dispatch = dispatch;
-
-        this.registerCallbacks(dispatch);
     }
 
     clone() {
@@ -39,34 +31,6 @@ export default class PageState {
         } else {
             return 'https://www.google.com/search?q=' + encodeURIComponent(input);
         }
-    }
-
-    // Note:
-    // This class preserves first dispatch function.  But dispatch function is passed from
-    // redux runtime every update.  So preserving dispatch function may occur some problems
-    // if dispatch function is updated by redux runtime.
-    registerCallbacks(dispatch) {
-        this.webview.addEventListener('load-commit', event => {
-            if (event.isMainFrame) {
-                dispatch(notifyStartLoading(this.tile_id, event.url));
-            }
-        });
-
-        this.webview.addEventListener(
-            'did-finish-load',
-            () => dispatch(notifyEndLoading(this.tile_id))
-        );
-
-        this.webview.addEventListener('did-fail-load', event => {
-            if (event.errorCode) {
-                console.log(`Failed loading: ${event.validatedUrl}: ${event.errorDescription}`);
-            }
-        });
-
-        this.webview.addEventListener(
-            'close',
-            () => dispatch(closeTile(this.tile_id))
-        );
     }
 
     updateStatus() {

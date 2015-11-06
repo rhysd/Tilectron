@@ -17,7 +17,7 @@ export default function Tile(p) {
     if (page) {
         return (
             <div {...props}>
-                <WebPage webview={page.webview} focused={focused}/>
+                <WebPage page={page} focused={focused}/>
             </div>
         );
     } else {

@@ -86,10 +86,11 @@ export function notifyStartLoading(tile_id, url) {
     };
 }
 
-export function notifyEndLoading(tile_id) {
+export function notifyEndLoading(tile_id, new_page) {
     return {
         type: NOTIFY_END_LOADING,
-        tile_id
+        tile_id,
+        new_page
     };
 }
 export function updateSearch(tile_id, result) {
